@@ -50,6 +50,7 @@ void testmenu::on_pb_dmm_clicked()
 void testmenu::on_pb_powersupply_clicked()
 {
     pce->pMotorSupply->remoteMode(true);
+    pce->pMotorSupply->reset();
     powersupply2 *pps = new powersupply2();
 
     //pps->exec();

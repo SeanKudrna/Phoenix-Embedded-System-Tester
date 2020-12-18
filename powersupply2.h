@@ -30,6 +30,8 @@ private slots:
 
     void on_pb_remote_clicked();
 
+    void on_cb_applyvoltage_stateChanged(int arg1);
+
 private:
     Ui::powersupply2 *ui;
     double voltage;

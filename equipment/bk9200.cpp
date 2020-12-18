@@ -29,6 +29,9 @@ static const char *UP = {"VOLT UP\n"}; /* increase voltage by [STEP] */
 static const char *DOWN = {"VOLT DOWN\n"}; /* decrease voltage by [STEP] */
 static const char *SET_VOLT = {"VOLT "}; /* set output voltage */
 
+static const char *TRIG_VOLT = {"VOLT: TRIG "}; /* trigger voltage output */
+
+
 static const char *TRIG  = {"*TRG\n"};
 static const char *CLEAR = {"*CLS\n"}; /* clear errors */
 static const char *NO_REF ={"VOLT:DC:REF:STATE 0"};
@@ -146,6 +149,14 @@ void BK9200::setVOLTS(double voltage)
     if(pSerialDevice){
         pSerialDevice->sendMessage(&msg);
     }
+}
+
+void BK9200::triggerVOLTS()
+{
+    if(pSerialDevice){
+        pSerialDevice->sendMessage(CC_CHAR(TRIG_VOLT));
+    }
+
 }
 
 
