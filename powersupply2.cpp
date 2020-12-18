@@ -16,11 +16,21 @@ powersupply2::powersupply2(QWidget *parent) :
 
     //set defaults
     voltage = 0.0;
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(onTimer()));
+    timer->start(1000);
+    flag = false;
 }
 
 powersupply2::~powersupply2()
 {
     delete ui;
+}
+
+void powersupply2::onTimer()
+{
+    double current = pce->pMotorSupply->getADC();
+    ui->te_ampreader->setHtml("<b><p align = 'center'>" + QString::number(current) + "</p></b>");
 }
 
 void powersupply2::on_pb_testmenu_clicked()
@@ -108,4 +118,14 @@ void powersupply2::on_cb_applyvoltage_stateChanged(int state)
 
 
     }//EOF Turn on voltage
+}
+
+void powersupply2::on_pb_ampsselect_clicked()
+{
+    //No software amp restrictions other than what is in BK 9201 PS
+    //Utilize Ohms law to limit settings?
+    QString amps = ui->te_ampssetting->toPlainText();
+    pce->pMotorSupply->setAMPS(amps.toDouble());
+    ui->te_ampsresult->setHtml("<b><p align = 'center'>" + amps + "</p></b>");
+    ui->te_ampssetting->clear();
 }

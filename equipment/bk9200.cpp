@@ -28,6 +28,7 @@ static const char *SET_STEP = {"VOLT:STEP "}; /* set [STEP] for volage UP and DO
 static const char *UP = {"VOLT UP\n"}; /* increase voltage by [STEP] */
 static const char *DOWN = {"VOLT DOWN\n"}; /* decrease voltage by [STEP] */
 static const char *SET_VOLT = {"VOLT "}; /* set output voltage */
+static const char *SET_AMP = {"CURR "}; /* set amps to [AMPS] */
 
 static const char *TRIG_VOLT = {"OUTP:STAT "}; /* trigger voltage output */
 
@@ -145,6 +146,17 @@ void BK9200::setVOLTS(double voltage)
     QString msg = QString(SET_VOLT);
 
     appendValue(&msg, voltage);
+
+    if(pSerialDevice){
+        pSerialDevice->sendMessage(&msg);
+    }
+}
+
+void BK9200::setAMPS(double amps)
+{
+    QString msg = QString(SET_AMP);
+
+    appendValue(&msg, amps);
 
     if(pSerialDevice){
         pSerialDevice->sendMessage(&msg);

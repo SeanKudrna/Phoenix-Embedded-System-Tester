@@ -32,6 +32,8 @@ public:
     void increaseVOLTS(); /* increase volts by [STEP] */
     void decreaseVOLTS(); /* decrease volts by [STEP] */
     void setVOLTS(double voltage); /* sets output voltage to [voltage] */
+    void setAMPS(double amps); /* sets amps to [AMPS] */
+
     void triggerVOLTS(int state); /* triggers voltage output */
 
     void clearErrors(); /* clears errors */

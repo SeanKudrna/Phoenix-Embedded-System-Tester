@@ -32,9 +32,15 @@ private slots:
 
     void on_cb_applyvoltage_stateChanged(int arg1);
 
+    void on_pb_ampsselect_clicked();
+
+    void onTimer();
+
 private:
     Ui::powersupply2 *ui;
     double voltage;
+    QTimer *timer;
+    bool flag;
 
 };
 

@@ -86,7 +86,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Rest</string>
+     <string>Reset</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pb_clear">
