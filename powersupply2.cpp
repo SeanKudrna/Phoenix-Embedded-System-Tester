@@ -99,12 +99,12 @@ void powersupply2::on_cb_applyvoltage_stateChanged(int state)
 {
     if (state == 0){
         ui->te_voltagestatus->setHtml("<b><p align = 'center'>OFF</p></b>");
-        pce->pMotorSupply->triggerVOLTS();
+        pce->pMotorSupply->triggerVOLTS(0);
 
     }//EOF Turn off voltage
     else{
         ui->te_voltagestatus->setHtml("<b><p align = 'center'>ON</p></b>");
-        pce->pMotorSupply->triggerVOLTS();
+        pce->pMotorSupply->triggerVOLTS(1);
 
 
     }//EOF Turn on voltage
