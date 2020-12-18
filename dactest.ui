@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>dactest</class>
+ <widget class="QDialog" name="dactest">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>370</width>
+    <height>454</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>10</y>
+     <width>68</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>DAC Test</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>140</y>
+     <width>68</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>DAC 2</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>300</y>
+     <width>68</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>DAC 4</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="te_dac4">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>320</y>
+     <width>151</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pb_dac3">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>320</y>
+     <width>51</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Enter</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pb_testmenu">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>400</y>
+     <width>99</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Test Menu</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="te_dac1">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>80</y>
+     <width>151</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pb_dac2">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>160</y>
+     <width>51</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Enter</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="te_dac2">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>160</y>
+     <width>151</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pb_dac2_2">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>240</y>
+     <width>51</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Enter</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="te_dac3">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>240</y>
+     <width>151</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pb_dac1">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>80</y>
+     <width>51</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Enter</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>60</y>
+     <width>68</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>DAC 1</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>220</y>
+     <width>68</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>DAC 3</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

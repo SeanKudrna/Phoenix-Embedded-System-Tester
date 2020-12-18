@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>relaydriver</class>
+ <widget class="QDialog" name="relaydriver">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>924</width>
+    <height>475</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>380</x>
+     <y>20</y>
+     <width>131</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Relay Driver Test</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="cb_pa7">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>70</y>
+     <width>101</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>PA7</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="cb_pa6">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>70</y>
+     <width>101</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>PA6</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="cb_pa5">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>70</y>
+     <width>101</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>PA5</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="cb_pa4">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>70</y>
+     <width>101</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>PA4</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="cb_pa3">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>70</y>
+     <width>101</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>PA3</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="cb_pa2">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>70</y>
+     <width>101</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>PA2</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="cb_pa1">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>70</y>
+     <width>101</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>PA1</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="cb_pa0">
+   <property name="geometry">
+    <rect>
+     <x>720</x>
+     <y>70</y>
+     <width>101</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>PA0</string>
+   </property>
+  </widget>
+  <widget class="Line" name="line">
+   <property name="geometry">
+    <rect>
+     <x>-3</x>
+     <y>100</y>
+     <width>931</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="Line" name="line_2">
+   <property name="geometry">
+    <rect>
+     <x>-10</x>
+     <y>330</y>
+     <width>931</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="cb_b5">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>360</y>
+     <width>101</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>B5</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="cb_b1">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>360</y>
+     <width>101</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>B1</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="cb_b3">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>360</y>
+     <width>101</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>B3</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="cb_b7">
+   <property name="geometry">
+    <rect>
+     <x>720</x>
+     <y>360</y>
+     <width>101</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>B7</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="cb_b0">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>360</y>
+     <width>101</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>B0</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="cb_b4">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>360</y>
+     <width>101</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>B4</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="cb_b2">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>360</y>
+     <width>101</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>B2</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="cb_b6">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>360</y>
+     <width>101</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>B6</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pb_testmenu">
+   <property name="geometry">
+    <rect>
+     <x>800</x>
+     <y>430</y>
+     <width>99</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Test Menu</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
