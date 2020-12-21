@@ -123,7 +123,7 @@ void MainWindow::onTimer()
     ui->te_timer->append(QString::number(count));
     if (count < 4)
     {
-        ui->pb_statusbar->setValue((count*3)+3);
+        ui->pb_statusbar->setValue((count*30)+(count*3));
         pce->pMeter->getId();
         pce->pMotorSupply->getId();
     }
@@ -137,6 +137,7 @@ void MainWindow::onTimer()
         pce->pMeter->getNextData(&MeterID);
         pce->pMotorSupply->getNextData(&SupplyID);
         ui->lbl_status->hide();
+        ui->pb_statusbar->hide();
 
 
         //pce->pCharger->getId();
