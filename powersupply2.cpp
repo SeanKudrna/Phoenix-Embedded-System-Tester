@@ -18,7 +18,7 @@ powersupply2::powersupply2(QWidget *parent) :
     voltage = 0.0;
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(onTimer()));
-    timer->start(1000);
+    timer->start(200);
     flag = false;
 }
 
@@ -29,8 +29,10 @@ powersupply2::~powersupply2()
 
 void powersupply2::onTimer()
 {
-    double current = pce->pMotorSupply->getADC();
-    ui->te_ampreader->setHtml("<b><p align = 'center'>" + QString::number(current) + "</p></b>");
+    pce->pMotorSupply->getADC();
+    pce->pMotorSupply->getNextData(&result);
+    ui->te_ampreader->setHtml("<b><p align = 'center'>" + result + "</p></b>");
+    //ui->te_ampreader->append(result);
 }
 
 void powersupply2::on_pb_testmenu_clicked()
@@ -52,7 +54,7 @@ void powersupply2::on_pb_increasev_clicked()
         //voltage = pce->pMotorSupply->getVDC() + .1;
         pce->pMotorSupply->setSTEP(0.1);
 
-        //pce->pMotorSupply->setVDC(voltage);
+        //pc->->pMotorSupply->setVDC(voltage);
         pce->pMotorSupply->increaseVOLTS();
     }
 }
@@ -122,10 +124,44 @@ void powersupply2::on_cb_applyvoltage_stateChanged(int state)
 
 void powersupply2::on_pb_ampsselect_clicked()
 {
-    //No software amp restrictions other than what is in BK 9201 PS
-    //Utilize Ohms law to limit settings?
     QString amps = ui->te_ampssetting->toPlainText();
-    pce->pMotorSupply->setAMPS(amps.toDouble());
-    ui->te_ampsresult->setHtml("<b><p align = 'center'>" + amps + "</p></b>");
-    ui->te_ampssetting->clear();
+    if (amps.toDouble() <= 10.1 && amps.toDouble() >= 0){
+        QString amps = ui->te_ampssetting->toPlainText();
+        pce->pMotorSupply->setAMPS(amps.toDouble());
+        ui->te_ampsresult->setHtml("<b><p align = 'center'>" + amps + "</p></b>");
+        ui->te_ampssetting->clear();
+    }
+}
+
+void powersupply2::on_pb_decreasea_clicked()
+{
+    QString current = ui->te_ampsresult->toPlainText();
+
+    if (current.toDouble() > 0){
+        double New = (current.toDouble() - 0.1);
+        ui->te_ampsresult->setStyleSheet("text-align: center;");
+        ui->te_ampsresult->setHtml("<b><p align = 'center'>" + QString::number(New) + "</p></b>");
+
+
+        //voltage = pce->pMotorSupply->getVDC() - .1;
+        pce->pMotorSupply->setSTEPA(0.1);
+
+        //pce->pMotorSupply->setVDC(voltage);
+        pce->pMotorSupply->decreaseAMPS();
+    }
+}
+
+void powersupply2::on_pb_increasea_clicked()
+{
+    QString current = ui->te_ampsresult->toPlainText();
+    if (current.toDouble() < 10.1){
+        double New = (current.toDouble() + 0.1);
+        ui->te_ampsresult->setHtml("<b><p align = 'center'>" + QString::number(New) + "</p></b>");
+
+        //voltage = pce->pMotorSupply->getVDC() + .1;
+        pce->pMotorSupply->setSTEPA(0.1);
+
+        //pc->->pMotorSupply->setVDC(voltage);
+        pce->pMotorSupply->increaseAMPS();
+    }
 }

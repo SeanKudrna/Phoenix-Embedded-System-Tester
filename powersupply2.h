@@ -36,11 +36,16 @@ private slots:
 
     void onTimer();
 
+    void on_pb_decreasea_clicked();
+
+    void on_pb_increasea_clicked();
+
 private:
     Ui::powersupply2 *ui;
     double voltage;
     QTimer *timer;
     bool flag;
+    QString result;
 
 };
 

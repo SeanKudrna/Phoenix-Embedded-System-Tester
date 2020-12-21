@@ -29,8 +29,13 @@ public:
     void remoteMode(bool set);/* remote or front panel opteration */
 
     void setSTEP(double step); /* set step for increase and descrease commands */
+    void setSTEPA(double step); /* set step for increase and decrease commands (amps) */
     void increaseVOLTS(); /* increase volts by [STEP] */
     void decreaseVOLTS(); /* decrease volts by [STEP] */
+
+    void increaseAMPS(); /* increase amps by [STEP] */
+    void decreaseAMPS(); /* decrease amps by [STEP] */
+
     void setVOLTS(double voltage); /* sets output voltage to [voltage] */
     void setAMPS(double amps); /* sets amps to [AMPS] */
 

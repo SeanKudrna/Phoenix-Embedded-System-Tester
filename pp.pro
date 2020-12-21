@@ -40,11 +40,11 @@ SOURCES += \
     can.cpp \
     lib.c \
     mainwindow.cpp \
-    powersupply2.cpp \
     testmenu.cpp \
     dactest.cpp \
     dac.cpp \
-    relaydriver.cpp
+    relaydriver.cpp \
+    powersupply2.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -63,11 +63,11 @@ HEADERS += \
     can.h \
     lib.h \
     j1939.h \
-    powersupply2.h \
     testmenu.h \
     dactest.h \
     dac.h \
-    relaydriver.h
+    relaydriver.h \
+    powersupply2.h
 
 FORMS += \
         mainwindow.ui \
