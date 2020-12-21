@@ -38,6 +38,8 @@ private slots:
 
     bool stateMachine();
 
+    void on_tb_equipmentcheck_clicked();
+
 private:
     Ui::MainWindow *ui;
     QTimer *timer;

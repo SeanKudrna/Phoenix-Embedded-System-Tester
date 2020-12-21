@@ -326,7 +326,7 @@ p, li { white-space: pre-wrap; }
     </rect>
    </property>
    <property name="text">
-    <string>- .1 V</string>
+    <string>- .1 A</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pb_increasea">
@@ -339,7 +339,7 @@ p, li { white-space: pre-wrap; }
     </rect>
    </property>
    <property name="text">
-    <string>+ .1 V</string>
+    <string>+ .1 A</string>
    </property>
   </widget>
   <widget class="QLabel" name="lbl_Increase_2">

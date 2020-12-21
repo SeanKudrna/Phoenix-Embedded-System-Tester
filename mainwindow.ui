@@ -151,6 +151,19 @@
      <string>Time (sec)</string>
     </property>
    </widget>
+   <widget class="QCommandLinkButton" name="tb_equipmentcheck">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>0</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Check Equipment Compatibility</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

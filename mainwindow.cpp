@@ -3,6 +3,7 @@
 #include "capitalequipment.h"
 #include "testmenu.h"
 #include <string>
+#include <QMessageBox>
 
 
 extern CapitalEquipment *pce;
@@ -235,7 +236,19 @@ void MainWindow::on_pb_testm_clicked()
     this->close();
 
     //delete ptm;
-
-
 }
 
+
+void MainWindow::on_tb_equipmentcheck_clicked()
+{
+    QString MeterID;
+    QString SupplyID;
+    QString ChargerID;
+
+    pce->pMeter->getId();
+    pce->pMeter->getNextData(&MeterID);
+
+    pce->pMotorSupply->getId();
+    pce->pMotorSupply->getNextData(&SupplyID);
+    //pce->pCharger->getId();
+}

@@ -16,7 +16,7 @@ public:
     Can *pCan;
     BK2831E *pMeter;
     BK9200 *pMotorSupply;
-//  BK9200 *pCharger;
+    BK9200 *pCharger;
     Dac *pDac;
     Relay *pRelay1;
     Relay *pRelay2;
