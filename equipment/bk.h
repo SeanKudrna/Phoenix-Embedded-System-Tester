@@ -8,14 +8,20 @@
 #include <QList>
 #include "types.h"
 
-
+static const QString meterID = "2831E  Multimeter";
+static const QString supplyID = "B&K Precision, 9205";
+static const QString chargerID  = "B&K Precision, 9201";
 
 class BK : public QObject
 {
+
+
     Q_OBJECT
 public:
 
     explicit BK(QObject *parent = nullptr,const char *port =SERIAL_PORT,int baud = BK_BAUD,char terminationChar = LINE_FEED);
+    explicit BK(QObject *parent = nullptr,const char *port =SERIAL_PORT,int baud = BK_BAUD,char terminationChar = LINE_FEED, QString idString = meterID);
+
 
     ~BK(); //destructor
     bool toVoltage(char *string,double *volt); /* convert the string to double voltage */
@@ -33,6 +39,8 @@ public:
     bool getNextData(QString *data);
     bool getNextData(int *data);
 
+    bool equipmentValidation(QString idString);
+
     void clearDataList(void); /* clear the data list  of measurements */
     SerialDevice *pSerialDevice;
 
@@ -41,6 +49,7 @@ private:
     int baud;
     char port[32];
     int counter;
+    QString idString;
 
 
 

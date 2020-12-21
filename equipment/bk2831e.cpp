@@ -42,7 +42,7 @@ BK2831E::~BK2831E(){
 
 
  
-BK2831E::BK2831E(BK *parent, const char *port,int baud,char terminationChar):BK(parent,port,baud,terminationChar)
+BK2831E::BK2831E(BK *parent, const char *port,int baud,char terminationChar, QString idString):BK(parent,port,baud,terminationChar, idString)
 {
 }
 

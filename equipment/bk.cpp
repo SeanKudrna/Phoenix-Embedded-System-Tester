@@ -1,5 +1,6 @@
 #include "../equipment/bk.h"
 #include <QtGlobal>
+#include <QString>
 
 
 #define CC_CHAR const_cast<char*>
@@ -34,6 +35,7 @@ char BK::getTerminationChar(void){
 }
 
 
+/*
 BK::BK(QObject *parent, const char *port,int baud,char terminationChar) : QObject(parent)
 {
     strcpy(this->port,port);
@@ -41,6 +43,25 @@ BK::BK(QObject *parent, const char *port,int baud,char terminationChar) : QObjec
     this->terminationChar = terminationChar;
 
     pSerialDevice = new SerialDevice(nullptr,port,baud,terminationChar);
+}
+*/
+
+BK::BK(QObject *parent, const char *port,int baud,char terminationChar, QString idString) : QObject(parent)
+{
+    strcpy(this->port,port);
+    this->baud = baud;
+    this->terminationChar = terminationChar;
+    this->idString = idString;
+
+    pSerialDevice = new SerialDevice(nullptr,port,baud,terminationChar);
+}
+
+bool BK::equipmentValidation(QString idString)
+{
+    if (idString.contains(this->idString))
+        return true;
+
+    return false;
 }
 
 

@@ -7,9 +7,9 @@ CapitalEquipment::CapitalEquipment(){
     //pMeter = new BK2831E(nullptr,SERIAL_MOTORSUPPLY,BK_BAUD,LINE_FEED);
     //pMotorSupply = new BK9200(nullptr,SERIAL_PORT,BK_BAUD,LINE_FEED);
 
-    pMeter = new BK2831E(nullptr,SERIAL_PORT,BK_BAUD,LINE_FEED);
-    pMotorSupply = new BK9200(nullptr,SERIAL_MOTORSUPPLY,BK_BAUD,LINE_FEED);
-    //BK9200 *pCharger;
+    pMeter = new BK2831E(nullptr,SERIAL_PORT,BK_BAUD,LINE_FEED, meterID);
+    pMotorSupply = new BK9200(nullptr,SERIAL_MOTOR,BK_BAUD,LINE_FEED, supplyID);
+    pCharger = new BK9200(nullptr,SERIAL_CHARGER,BK_BAUD,LINE_FEED, chargerID);;
     pDac = new Dac(0x60);
     pRelay1 = new Relay(0x20);
     pRelay2 = new Relay(0x40);
@@ -18,7 +18,7 @@ CapitalEquipment::CapitalEquipment(){
 CapitalEquipment::~CapitalEquipment(){
     delete pCan;
     delete pMeter;
-//   delete pMotorSupply;
+    delete pMotorSupply;
     delete pDac;
     delete pRelay1;
     delete pRelay2;

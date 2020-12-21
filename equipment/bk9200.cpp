@@ -57,7 +57,7 @@ BK9200::~BK9200(){
     // delete the port
 }
 
-BK9200::BK9200(BK *parent, const char *port,int baud,char terminationChar) : BK(parent,port,baud,terminationChar)
+BK9200::BK9200(BK *parent, const char *port,int baud,char terminationChar, QString idString) : BK(parent,port,baud,terminationChar,idString)
 {
 
 }

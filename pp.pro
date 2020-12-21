@@ -44,7 +44,8 @@ SOURCES += \
     dactest.cpp \
     dac.cpp \
     relaydriver.cpp \
-    powersupply2.cpp
+    powersupply2.cpp \
+    popup.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -67,14 +68,16 @@ HEADERS += \
     dactest.h \
     dac.h \
     relaydriver.h \
-    powersupply2.h
+    powersupply2.h \
+    popup.h
 
 FORMS += \
         mainwindow.ui \
     powersupply2.ui \
     testmenu.ui \
     dactest.ui \
-    relaydriver.ui
+    relaydriver.ui \
+    popup.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

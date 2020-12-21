@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "capitalequipment.h"
 #include "testmenu.h"
+#include "popup.h"
 #include <string>
 #include <QMessageBox>
 
@@ -120,6 +121,45 @@ void MainWindow::onTimer()
     //Timer clock (right-hand box in ui)
     count++;
     ui->te_timer->append(QString::number(count));
+    if (count < 4)
+    {
+        ui->pb_statusbar->setValue((count*3)+3);
+        pce->pMeter->getId();
+        pce->pMotorSupply->getId();
+    }
+
+    if (count == 4)
+    {
+        QString MeterID;
+        QString SupplyID;
+        QString ChargerID;
+
+        pce->pMeter->getNextData(&MeterID);
+        pce->pMotorSupply->getNextData(&SupplyID);
+        ui->lbl_status->hide();
+
+
+        //pce->pCharger->getId();
+        //pce->pCharger->geetNextData(&ChargerID);
+
+        if (!pce->pMeter->equipmentValidation(MeterID)){
+            popup *ppu = new popup();
+            ppu->exec();
+        }
+
+
+        else if (!pce->pMotorSupply->equipmentValidation(SupplyID)){
+            popup *ppu = new popup();
+            ppu->exec();
+        }
+
+       //else if(!pce->pCharger->equipmentValidation(ChargerID)){
+            //popup *ppu = new popup();
+            //ppu->exec();
+        //}
+
+    }
+
 
     if (getData)
         stateMachine();
@@ -241,14 +281,7 @@ void MainWindow::on_pb_testm_clicked()
 
 void MainWindow::on_tb_equipmentcheck_clicked()
 {
-    QString MeterID;
-    QString SupplyID;
-    QString ChargerID;
 
-    pce->pMeter->getId();
-    pce->pMeter->getNextData(&MeterID);
 
-    pce->pMotorSupply->getId();
-    pce->pMotorSupply->getNextData(&SupplyID);
-    //pce->pCharger->getId();
 }
+

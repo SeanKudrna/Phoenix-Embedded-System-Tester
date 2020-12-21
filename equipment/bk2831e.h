@@ -14,7 +14,7 @@ class BK2831E : public BK
     Q_OBJECT
 public:
 
-    /*explicit */ BK2831E(BK *parent = nullptr,const char *port =SERIAL_PORT,int baud = BK_BAUD,char terminationChar = LINE_FEED);
+    /*explicit */ BK2831E(BK *parent = nullptr,const char *port =SERIAL_PORT,int baud = BK_BAUD,char terminationChar = LINE_FEED, QString idString = meterID);
     ~BK2831E(); //destructor
     void trigger(void); /* send the trigger caommand */
     void setVDC(void); /* set meter to VDC */
