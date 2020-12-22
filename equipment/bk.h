@@ -8,9 +8,6 @@
 #include <QList>
 #include "types.h"
 
-static const QString meterID = "2831E  Multimeter";
-static const QString supplyID = "B&K Precision, 9205";
-static const QString chargerID  = "B&K Precision, 9201";
 
 class BK : public QObject
 {
@@ -43,6 +40,10 @@ public:
 
     void clearDataList(void); /* clear the data list  of measurements */
     SerialDevice *pSerialDevice;
+
+    static const QString meterID;
+    static const QString supplyID;
+    static const QString chargerID;
 
 private:
     char terminationChar;

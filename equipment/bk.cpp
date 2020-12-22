@@ -8,6 +8,11 @@
 static const char *IDN   = {"*IDN?\n"};
 static const char *RESET = {"*RST\n"};
 
+
+ const QString BK::meterID = {"2831E  Multimeter"};
+ const QString BK::supplyID = {"B&K Precision, 9205"};
+ const QString BK::chargerID  = {"B&K Precision, 9201"};
+
 BK::~BK(){
 #if(0)
     // fixme send the quit thread signal

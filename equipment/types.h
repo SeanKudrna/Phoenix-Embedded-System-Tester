@@ -14,6 +14,14 @@
 #define SERIAL_PORT "/dev/ttyUSB0"
 #define SERIAL_CHARGER "/dev/ttyUSB2"
 #define SERIAL_MOTOR "/dev/ttyUSB1"
+
+//----Testing----
+//#define SERIAL_PORT "/dev/ttyUSB2"
+//#define SERIAL_CHARGER "/dev/ttyUSB0"
+//#define SERIAL_MOTOR "/dev/ttyUSB1"
+
+
+
 #else
 #define SERIAL_PORT "COM26"
 #endif

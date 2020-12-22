@@ -141,7 +141,7 @@ void MainWindow::onTimer()
 
 
         //pce->pCharger->getId();
-        //pce->pCharger->geetNextData(&ChargerID);
+        //pce->pCharger->getNextData(&ChargerID);
 
         if (!pce->pMeter->equipmentValidation(MeterID)){
             popup *ppu = new popup();
@@ -149,15 +149,17 @@ void MainWindow::onTimer()
         }
 
 
-        else if (!pce->pMotorSupply->equipmentValidation(SupplyID)){
+         else if (!pce->pMotorSupply->equipmentValidation(SupplyID)){
             popup *ppu = new popup();
             ppu->exec();
         }
 
+        //-----Testing-----
        //else if(!pce->pCharger->equipmentValidation(ChargerID)){
             //popup *ppu = new popup();
             //ppu->exec();
         //}
+        //-----Comment Out Again-----
 
     }
 
@@ -277,12 +279,5 @@ void MainWindow::on_pb_testm_clicked()
     this->close();
 
     //delete ptm;
-}
-
-
-void MainWindow::on_tb_equipmentcheck_clicked()
-{
-
-
 }
 

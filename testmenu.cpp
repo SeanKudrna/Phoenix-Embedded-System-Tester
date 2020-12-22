@@ -51,6 +51,8 @@ void testmenu::on_pb_powersupply_clicked()
 {
     pce->pMotorSupply->remoteMode(true);
     pce->pMotorSupply->reset();
+    pce->pCharger->remoteMode(true);
+    pce->pCharger->reset();
     powersupply2 *pps = new powersupply2();
 
     //pps->exec();

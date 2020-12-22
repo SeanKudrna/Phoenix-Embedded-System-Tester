@@ -7,9 +7,9 @@ CapitalEquipment::CapitalEquipment(){
     //pMeter = new BK2831E(nullptr,SERIAL_MOTORSUPPLY,BK_BAUD,LINE_FEED);
     //pMotorSupply = new BK9200(nullptr,SERIAL_PORT,BK_BAUD,LINE_FEED);
 
-    pMeter = new BK2831E(nullptr,SERIAL_PORT,BK_BAUD,LINE_FEED, meterID);
-    pMotorSupply = new BK9200(nullptr,SERIAL_MOTOR,BK_BAUD,LINE_FEED, supplyID);
-    pCharger = new BK9200(nullptr,SERIAL_CHARGER,BK_BAUD,LINE_FEED, chargerID);;
+    pMeter = new BK2831E(nullptr,SERIAL_PORT,BK_BAUD,LINE_FEED, BK::meterID);
+    pMotorSupply = new BK9200(nullptr,SERIAL_MOTOR,BK_BAUD,LINE_FEED, BK::supplyID);
+    pCharger = new BK9200(nullptr,SERIAL_CHARGER,BK_BAUD,LINE_FEED, BK::chargerID);;
     pDac = new Dac(0x60);
     pRelay1 = new Relay(0x20);
     pRelay2 = new Relay(0x40);

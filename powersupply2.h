@@ -40,12 +40,16 @@ private slots:
 
     void on_pb_increasea_clicked();
 
+    void on_pb_config_clicked();
+
 private:
     Ui::powersupply2 *ui;
     double voltage;
     QTimer *timer;
     bool flag;
     QString result;
+
+    int config;
 
 };
 
