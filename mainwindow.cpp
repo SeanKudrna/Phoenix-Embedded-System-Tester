@@ -6,7 +6,6 @@
 #include <string>
 #include <QMessageBox>
 
-
 extern CapitalEquipment *pce;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -123,9 +122,11 @@ void MainWindow::onTimer()
     ui->te_timer->append(QString::number(count));
     if (count < 4)
     {
-        ui->pb_statusbar->setValue((count*30)+(count*3));
+        ui->pb_statusbar->setValue((count*25 ));
         pce->pMeter->getId();
         pce->pMotorSupply->getId();
+        pce->pCharger->getId();
+
     }
 
     if (count == 4)
@@ -136,12 +137,13 @@ void MainWindow::onTimer()
 
         pce->pMeter->getNextData(&MeterID);
         pce->pMotorSupply->getNextData(&SupplyID);
+        pce->pCharger->getNextData(&ChargerID);
+
+
         ui->lbl_status->hide();
         ui->pb_statusbar->hide();
 
 
-        //pce->pCharger->getId();
-        //pce->pCharger->getNextData(&ChargerID);
 
         if (!pce->pMeter->equipmentValidation(MeterID)){
             popup *ppu = new popup();
@@ -154,12 +156,10 @@ void MainWindow::onTimer()
             ppu->exec();
         }
 
-        //-----Testing-----
-       //else if(!pce->pCharger->equipmentValidation(ChargerID)){
-            //popup *ppu = new popup();
-            //ppu->exec();
-        //}
-        //-----Comment Out Again-----
+       else if(!pce->pCharger->equipmentValidation(ChargerID)){
+            popup *ppu = new popup();
+            ppu->exec();
+        }
 
     }
 

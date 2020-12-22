@@ -45,7 +45,8 @@ SOURCES += \
     dac.cpp \
     relaydriver.cpp \
     powersupply2.cpp \
-    popup.cpp
+    popup.cpp \
+    probe.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -69,7 +70,8 @@ HEADERS += \
     dac.h \
     relaydriver.h \
     powersupply2.h \
-    popup.h
+    popup.h \
+    probe.h
 
 FORMS += \
         mainwindow.ui \
