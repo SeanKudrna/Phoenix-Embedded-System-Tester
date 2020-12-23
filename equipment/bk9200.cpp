@@ -172,7 +172,6 @@ void BK9200::decreaseAMPS()
         pSerialDevice->sendMessage(CC_CHAR(DOWNA));
     }
 }
-
 void BK9200::setVOLTS(double voltage)
 {
     QString msg = QString(SET_VOLT);

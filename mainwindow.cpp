@@ -123,9 +123,13 @@ void MainWindow::onTimer()
     if (count < 4)
     {
         ui->pb_statusbar->setValue((count*25 ));
-        pce->pMeter->getId();
-        pce->pMotorSupply->getId();
-        pce->pCharger->getId();
+
+        if(pce->pMeter != nullptr && pce->pMotorSupply != nullptr && pce->pCharger != nullptr)
+        {
+            pce->pMeter->getId();
+            pce->pMotorSupply->getId();
+            pce->pCharger->getId();
+        }
 
     }
 
@@ -135,30 +139,33 @@ void MainWindow::onTimer()
         QString SupplyID;
         QString ChargerID;
 
-        pce->pMeter->getNextData(&MeterID);
-        pce->pMotorSupply->getNextData(&SupplyID);
-        pce->pCharger->getNextData(&ChargerID);
+        if(pce->pMeter != nullptr && pce->pMotorSupply != nullptr && pce->pCharger != nullptr)
+        {
+            pce->pMeter->getNextData(&MeterID);
+            pce->pMotorSupply->getNextData(&SupplyID);
+            pce->pCharger->getNextData(&ChargerID);
 
 
-        ui->lbl_status->hide();
-        ui->pb_statusbar->hide();
+            ui->lbl_status->hide();
+            ui->pb_statusbar->hide();
 
 
 
-        if (!pce->pMeter->equipmentValidation(MeterID)){
-            popup *ppu = new popup();
-            ppu->exec();
-        }
+            if (!pce->pMeter->equipmentValidation(MeterID)){
+                popup *ppu = new popup();
+                ppu->exec();
+            }
 
 
-         else if (!pce->pMotorSupply->equipmentValidation(SupplyID)){
-            popup *ppu = new popup();
-            ppu->exec();
-        }
+             else if (!pce->pMotorSupply->equipmentValidation(SupplyID)){
+                popup *ppu = new popup();
+                ppu->exec();
+            }
 
-       else if(!pce->pCharger->equipmentValidation(ChargerID)){
-            popup *ppu = new popup();
-            ppu->exec();
+           else if(!pce->pCharger->equipmentValidation(ChargerID)){
+                popup *ppu = new popup();
+                ppu->exec();
+            }
         }
 
     }

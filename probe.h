@@ -12,23 +12,23 @@ typedef enum {
     chargerSupply
 }equipment;
 
-class probe
+class probe : public QObject
 {
+    Q_OBJECT
 public:
-    explicit probe(BK *parent, const char *port,int baud,char terminationChar, QString idString);
-    probe();
+     probe();
 
     struct equipmentAssignment
     {
         QString port;
         equipment equ;
     };
+
     QList<equipmentAssignment> pieces;
     void listPorts();
-    void testAll();
 
-    //void listPorts();
-    //void testAll();
+public slots:
+        void testAll();
 
 
 private:
@@ -36,12 +36,6 @@ private:
     QList<QString> portList;
     QTimer *timer;
     QString curPort;
-
-    //struct equipmentConfig
-    //{
-    //    QString serialPort;
-    //    equipment piece;
-    //};
     equipmentAssignment piece;
 
 

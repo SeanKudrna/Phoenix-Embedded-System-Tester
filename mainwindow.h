@@ -21,23 +21,14 @@ public:
 
 private slots:
     void on_pb_get_clicked();
-
     void on_rb_ac_clicked();
-
     void on_rb_dc_clicked();
-
     void on_rb_ohms_clicked();
-
     void on_pb_reset_clicked();
-
     void on_pb_clear_clicked();
-
     void onTimer();
-
     void on_pb_testm_clicked();
-
     bool stateMachine();
-
 
 private:
     Ui::MainWindow *ui;

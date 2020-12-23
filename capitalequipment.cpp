@@ -9,10 +9,14 @@ CapitalEquipment::CapitalEquipment(){
     //pMeter = new BK2831E(nullptr,SERIAL_PORT,BK_BAUD,LINE_FEED, BK::meterID);
     //pMotorSupply = new BK9200(nullptr,SERIAL_MOTOR,BK_BAUD,LINE_FEED, BK::supplyID);
     //pCharger = new BK9200(nullptr,SERIAL_CHARGER,BK_BAUD,LINE_FEED, BK::chargerID);
+
     probe *Probe = new probe();
-    Probe->listPorts();
-    Probe->testAll();
-    for (int i = 0; i < Probe->pieces.size(); i++)
+
+    //Handled by constructor
+    //Probe->listPorts();
+    //Probe->testAll();
+
+    for (int i = 0; i < Probe->pieces.size() - 1; i++)
     {
         if (Probe->pieces[i].equ == meter)
         {

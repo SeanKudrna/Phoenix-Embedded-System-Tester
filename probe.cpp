@@ -3,7 +3,7 @@
 #include <capitalequipment.h>
 #include <QTimer>
 
-
+static const char *IDN   = {"*IDN?\n"};
 
 //How do I set up the constructor?
 probe::probe() //BK(parent,port,baud,terminationChar,idString)
@@ -11,13 +11,18 @@ probe::probe() //BK(parent,port,baud,terminationChar,idString)
 
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(testAll()));
+    timer->start(1000);
+    listPorts(); // populate portList so timer can access on creation
 }
+
 
 void probe::listPorts()
 {
     for (QSerialPortInfo serialPort : QSerialPortInfo::availablePorts())
     {
-        portList.append(serialPort.portName());
+        if (serialPort.portName().contains("USB"))
+            portList.append(serialPort.portName());
+
     }
 }
 
@@ -28,11 +33,8 @@ enum states{
 };
 static states state = SS_SEND;
 
-
 void probe::testAll()
 {
-
-
     switch(state)
     {
         case SS_SEND:{
@@ -45,20 +47,25 @@ void probe::testAll()
                 if(pSerial)
                 {
                     //Send IDN request
-                    pSerial->sendMessage("*IDN>\n");
+                    pSerial->sendMessage("SYST:REM\n");
+                    pSerial->sendMessage(IDN);
 
                     //Save port, and pop value off the list
                     curPort = portList[i];
-                    portList.pop_front();
+                    //portList.pop_front();
 
-                    if (portList.size() != 0)
+                    if (portList.size() != 0){
                         state = SS_RECIEVE;
-                    else
+                        break;
+                    }
+                    else{
                         state = SS_COMPLETE;
+                        break;
+                    }
 
-                    break;
                  }
              }
+            break;
         }
         case SS_RECIEVE:{
             QString serialString;
@@ -67,27 +74,32 @@ void probe::testAll()
 
             if(serialString != "")
             {
-                piece.port = curPort;
+                //if(serialString.contains("B&K Precision") || serialString.contains("2831E"))
+                //{
+                    piece.port = curPort;
 
-                if (serialString.contains(BK::meterID))
-                {
-                    piece.equ = meter;
-                }
-                else if (serialString.contains(BK::supplyID))
-                {
-                    piece.equ = motorSupply;
-                }
-                else if (serialString.contains(BK::chargerID))
-                {
-                    piece.equ = chargerSupply;
-                }
+                    if (serialString.contains(BK::meterID) || serialString.contains("SYST:REM"))
+                    {
+                        piece.equ = meter;
+                    }
+                    else if (serialString.contains(BK::supplyID))
+                    {
+                        piece.equ = motorSupply;
+                    }
+                    else if (serialString.contains(BK::chargerID))
+                    {
+                        piece.equ = chargerSupply;
+                    }
 
-                pieces.append(piece);
-                state = SS_SEND;
-                break;
+                    pieces.append(piece);
+                //}
+                 state = SS_SEND;
+                 portList.pop_front();
             }
+            break;
         }
         case SS_COMPLETE:{
+           timer->stop();
            break;
         }
     }

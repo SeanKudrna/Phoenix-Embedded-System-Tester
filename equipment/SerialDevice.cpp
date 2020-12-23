@@ -88,6 +88,13 @@ bool SerialDevice::getNextData(QString *data){
     }
     return status;
 }
+
+void SerialDevice::removeLast(){
+    if(dataList.size())
+    {
+        dataList.pop_front();
+    }
+}
 /* clear the data list  of measurements*/
 void SerialDevice::clearDataList(void){
     dataList.clear();

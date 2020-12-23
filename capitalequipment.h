@@ -24,4 +24,4 @@ public:
 };
 
 extern  CapitalEquipment *pce;
-#endif // CAPITALEQUIPMENT_H
+#endif

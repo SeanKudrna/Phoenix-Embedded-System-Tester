@@ -24,6 +24,7 @@ public:
     void sendMessage(char *pMessage);/* send serial message */
     void sendMessage(const char *pMessage);/* send serial message */
     void sendMessage(QString *pMessage);/* send serial message */
+    void removeLast(); /* remove last entry from dataList */
     bool getMessageFlag(void); /* return the message flag */
     QThread *serialThread;
     GSerial *serialObject;
