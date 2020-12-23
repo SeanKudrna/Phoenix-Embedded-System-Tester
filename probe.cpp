@@ -4,6 +4,7 @@
 #include <QTimer>
 
 static const char *IDN   = {"*IDN?\n"};
+static const char *REMOTE = {"SYST:REM\n"};
 
 //How do I set up the constructor?
 probe::probe() //BK(parent,port,baud,terminationChar,idString)
@@ -47,7 +48,7 @@ void probe::testAll()
                 if(pSerial)
                 {
                     //Send IDN request
-                    pSerial->sendMessage("SYST:REM\n");
+                    pSerial->sendMessage(REMOTE);
                     pSerial->sendMessage(IDN);
 
                     //Save port, and pop value off the list
@@ -99,6 +100,7 @@ void probe::testAll()
             break;
         }
         case SS_COMPLETE:{
+           //completed = true;
            timer->stop();
            break;
         }

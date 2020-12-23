@@ -120,53 +120,51 @@ void MainWindow::onTimer()
     //Timer clock (right-hand box in ui)
     count++;
     ui->te_timer->append(QString::number(count));
-    if (count < 4)
+    if (count <= 4 && pce->completed ==3)
     {
         ui->pb_statusbar->setValue((count*25 ));
 
-        if(pce->pMeter != nullptr && pce->pMotorSupply != nullptr && pce->pCharger != nullptr)
-        {
-            pce->pMeter->getId();
-            pce->pMotorSupply->getId();
-            pce->pCharger->getId();
-        }
+
+        pce->pMeter->getId();
+        pce->pMotorSupply->getId();
+        pce->pCharger->getId();
+
 
     }
 
-    if (count == 4)
+    if (count == 4 && pce->completed ==3)
     {
         QString MeterID;
         QString SupplyID;
         QString ChargerID;
 
-        if(pce->pMeter != nullptr && pce->pMotorSupply != nullptr && pce->pCharger != nullptr)
-        {
-            pce->pMeter->getNextData(&MeterID);
-            pce->pMotorSupply->getNextData(&SupplyID);
-            pce->pCharger->getNextData(&ChargerID);
+
+        pce->pMeter->getNextData(&MeterID);
+        pce->pMotorSupply->getNextData(&SupplyID);
+        pce->pCharger->getNextData(&ChargerID);
 
 
-            ui->lbl_status->hide();
-            ui->pb_statusbar->hide();
+        ui->lbl_status->hide();
+        ui->pb_statusbar->hide();
 
 
 
-            if (!pce->pMeter->equipmentValidation(MeterID)){
-                popup *ppu = new popup();
-                ppu->exec();
-            }
-
-
-             else if (!pce->pMotorSupply->equipmentValidation(SupplyID)){
-                popup *ppu = new popup();
-                ppu->exec();
-            }
-
-           else if(!pce->pCharger->equipmentValidation(ChargerID)){
-                popup *ppu = new popup();
-                ppu->exec();
-            }
+        if (!pce->pMeter->equipmentValidation(MeterID)){
+            popup *ppu = new popup();
+            ppu->exec();
         }
+
+
+         else if (!pce->pMotorSupply->equipmentValidation(SupplyID)){
+            popup *ppu = new popup();
+            ppu->exec();
+        }
+
+       else if(!pce->pCharger->equipmentValidation(ChargerID)){
+            popup *ppu = new popup();
+            ppu->exec();
+        }
+
 
     }
 
@@ -177,36 +175,6 @@ void MainWindow::onTimer()
         if (flag)
             ui->te_result->append(" ");
     }
-
-
-    /*
-    //Timer clock (right-hand box in ui)
-    count++;
-    ui->te_timer->append(QString::number(count));
-
-    //Testing on the second
-    //if state is true (running)
-    if (getData)
-    {
-        //Read meter
-        pce->pMeter->measure();
-        //Save meter data to result string
-        pce->pMeter->getNextData(&result);
-
-        //Add result to ui display
-        ui->te_result->append(result);
-    }
-
-    //If state
-    else
-    {
-        //state = SS_COMPLETE;
-        //add " " to text edit
-        ui->te_result->append(" ");
-
-        //This will show the voltages recorded at each time stamp
-    }
-    */
 
 }
 
@@ -237,14 +205,6 @@ void MainWindow::on_pb_get_clicked()
         getData = true;
         //state = SS_VAC;
     }
-
-
-    //QString result;
-    //pce->pMeter->measure();
-    //pce->pMeter->getNextData(&result);
-
-    //ui->te_result->clear();
-    //ui->te_result->append(result);
 
 }
 
