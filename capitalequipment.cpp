@@ -1,6 +1,7 @@
 #include "capitalequipment.h"
 #include "./equipment/types.h"
 #include "probe.h"
+#include "QDebug"
 
 
 CapitalEquipment::CapitalEquipment(){
@@ -17,7 +18,12 @@ CapitalEquipment::CapitalEquipment(){
     pDac = new Dac(0x60);
     pRelay1 = new Relay(0x20);
     pRelay2 = new Relay(0x40);
-    //create();
+    completed = 0;
+
+    pMeter;
+    pMotorSupply;
+    pCharger;
+
 
 }
 
@@ -25,6 +31,7 @@ CapitalEquipment::~CapitalEquipment(){
     delete pCan;
     delete pMeter;
     delete pMotorSupply;
+    delete pCharger;
     delete pDac;
     delete pRelay1;
     delete pRelay2;
@@ -33,22 +40,52 @@ CapitalEquipment::~CapitalEquipment(){
 void CapitalEquipment::create()
 {
 
+    //How to properly convert these QString ports into char* without extra characters?
+    //
+    //
+    //
+    //
     for (int i = 0; i < Probe->pieces.size(); i++)
     {
         if (Probe->pieces[i].equ == meter)
         {
-            pMeter = new BK2831E(nullptr, Probe->pieces[i].port.toLatin1().toStdString().c_str(), BK_BAUD, LINE_FEED, BK::meterID);
-            completed++;
+            QString port =  Probe->pieces[i].port;
+            char* p = new char[port.length() + 1];
+            strcpy(p, port.toLatin1().constData());
+
+            pMeter = new BK2831E(nullptr, p, BK_BAUD, LINE_FEED, BK::meterID);
+            this->completed++;
+            delete[] p;
+
         }
         else if (Probe->pieces[i].equ == motorSupply)
         {
-            pMotorSupply = new BK9200(nullptr, Probe->pieces[i].port.toLatin1().toStdString().c_str(), BK_BAUD, LINE_FEED, BK::supplyID);
-            completed++;
+            QString port =  Probe->pieces[i].port;
+
+            char* p = new char[port.length() + 1];
+            strcpy(p, port.toLatin1().constData());
+
+            pMotorSupply = new BK9200(nullptr, p , BK_BAUD, LINE_FEED, BK::supplyID);
+            this->completed++;
+            delete[] p;
+
         }
         else if (Probe->pieces[i].equ == chargerSupply)
         {
-            pCharger = new BK9200(nullptr, Probe->pieces[i].port.toLatin1().toStdString().c_str(), BK_BAUD, LINE_FEED, BK::chargerID);
-            completed++;
+            QString port =  Probe->pieces[i].port;
+
+            char* p = new char[port.length() + 1];
+            strcpy(p, port.toLatin1().constData());
+
+            pCharger = new BK9200(nullptr, p, BK_BAUD, LINE_FEED, BK::chargerID);
+            this->completed++;
+            delete[] p;
+
         }
     }
+}
+
+int CapitalEquipment::getCompletedStatus()
+{
+    return completed;
 }

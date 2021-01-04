@@ -26,6 +26,7 @@ public:
 
     QList<equipmentAssignment> pieces;
     void listPorts();
+    bool getStatus();
 
 public slots:
         void testAll();
@@ -35,6 +36,7 @@ private:
     SerialDevice *pSerial;
     QList<QString> portList;
     QTimer *timer;
+    bool complete;
     QString curPort;
     equipmentAssignment piece;
 

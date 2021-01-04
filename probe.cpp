@@ -14,6 +14,7 @@ probe::probe() //BK(parent,port,baud,terminationChar,idString)
     connect(timer, SIGNAL(timeout()), this, SLOT(testAll()));
     timer->start(1000);
     listPorts(); // populate portList so timer can access on creation
+    complete = false;
 }
 
 
@@ -25,6 +26,11 @@ void probe::listPorts()
             portList.append(serialPort.portName());
 
     }
+}
+
+bool probe::getStatus()
+{
+    return complete;
 }
 
 enum states{
@@ -59,13 +65,10 @@ void probe::testAll()
                         state = SS_RECIEVE;
                         break;
                     }
-                    else{
-                        state = SS_COMPLETE;
-                        break;
-                    }
-
                  }
              }
+             if (portList.size() == 0)
+                 state = SS_COMPLETE;
             break;
         }
         case SS_RECIEVE:{
@@ -100,7 +103,7 @@ void probe::testAll()
             break;
         }
         case SS_COMPLETE:{
-           //completed = true;
+           complete = true;
            timer->stop();
            break;
         }

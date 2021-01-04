@@ -20,13 +20,14 @@ public:
     BK2831E *pMeter;
     BK9200 *pMotorSupply;
     BK9200 *pCharger;
-
     Dac *pDac;
     Relay *pRelay1;
     Relay *pRelay2;
-    int completed;
     void create();
+    int getCompletedStatus();
+
   private:
+    int completed;
 };
 
 extern  CapitalEquipment *pce;

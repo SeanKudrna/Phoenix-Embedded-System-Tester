@@ -15,7 +15,7 @@ class BK9200 : public BK
     //Q_OBJECT
 public:
 
-    explicit BK9200(BK *parent = nullptr,const char *port =SERIAL_PORT,int baud = BK_BAUD,char terminationChar = LINE_FEED, QString idString = supplyID);
+    explicit BK9200(BK *parent = nullptr,const char *port =SERIAL_PORT,int baud = BK_BAUD,char terminationChar = LINE_FEED, QString idString = chargerID);
 
 
     ~BK9200(); //destructor

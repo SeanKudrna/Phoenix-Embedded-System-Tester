@@ -39,6 +39,9 @@ private:
     bool getData;
     bool flag;
     int testIterations;
+
+    bool probeStatus;
+    int equStatus;
 };
 
 #endif // MAINWINDOW_H

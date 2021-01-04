@@ -24,6 +24,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     countReading = 0;
     testIterations = 0;
+
+    probeStatus = false;
+    equStatus = 0;
 }
 
 
@@ -120,7 +123,18 @@ void MainWindow::onTimer()
     //Timer clock (right-hand box in ui)
     count++;
     ui->te_timer->append(QString::number(count));
-    if (count <= 4 && pce->completed ==3)
+
+    //Get probe status
+    probeStatus = pce->Probe->getStatus();
+    equStatus = pce->getCompletedStatus();
+
+
+    //If probe has finished, and objects have not been created, create them
+    if (probeStatus && equStatus == 0)
+        pce->create();
+
+
+    if (count < 12 && equStatus == 3)
     {
         ui->pb_statusbar->setValue((count*25 ));
 
@@ -132,7 +146,7 @@ void MainWindow::onTimer()
 
     }
 
-    if (count == 4 && pce->completed ==3)
+    if (count == 12 && equStatus == 3)
     {
         QString MeterID;
         QString SupplyID;
@@ -160,10 +174,10 @@ void MainWindow::onTimer()
             ppu->exec();
         }
 
-       else if(!pce->pCharger->equipmentValidation(ChargerID)){
-            popup *ppu = new popup();
-            ppu->exec();
-        }
+       //else if(!pce->pCharger->equipmentValidation(ChargerID)){
+            //popup *ppu = new popup();
+            //ppu->exec();
+       // }
 
 
     }
