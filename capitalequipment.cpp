@@ -7,9 +7,9 @@
 CapitalEquipment::CapitalEquipment(){
     pCan= new Can(0x00,0x00);
 
-    //pMeter = new BK2831E(nullptr,SERIAL_PORT,BK_BAUD,LINE_FEED, BK::meterID);
-    //pMotorSupply = new BK9200(nullptr,SERIAL_MOTOR,BK_BAUD,LINE_FEED, BK::supplyID);
-    //pCharger = new BK9200(nullptr,SERIAL_CHARGER,BK_BAUD,LINE_FEED, BK::chargerID);
+    pMeter = new BK2831E(nullptr,SERIAL_PORT,BK_BAUD,LINE_FEED, BK::meterID);
+    pMotorSupply = new BK9200(nullptr,SERIAL_MOTOR,BK_BAUD,LINE_FEED, BK::supplyID);
+    pCharger = new BK9200(nullptr,SERIAL_CHARGER,BK_BAUD,LINE_FEED, BK::chargerID);
 
     //Handled by constructor
     //Probe->listPorts();
@@ -19,6 +19,7 @@ CapitalEquipment::CapitalEquipment(){
     pRelay1 = new Relay(0x20);
     pRelay2 = new Relay(0x40);
     completed = 0;
+
 }
 
 CapitalEquipment::~CapitalEquipment(){
@@ -43,7 +44,7 @@ void CapitalEquipment::create()
             strcpy(p, port.toLatin1().constData());
 
 
-            pMeter = new BK2831E(nullptr, p, BK_BAUD, LINE_FEED, BK::meterID);
+            //pMeter = new BK2831E(nullptr, p, BK_BAUD, LINE_FEED, BK::meterID);
             this->completed++;
             delete[] p;
 
@@ -56,7 +57,7 @@ void CapitalEquipment::create()
             strcpy(p, port.toLatin1().constData());
 
 
-            pMotorSupply = new BK9200(nullptr, p , BK_BAUD, LINE_FEED, BK::supplyID);
+            //pMotorSupply = new BK9200(nullptr, p , BK_BAUD, LINE_FEED, BK::supplyID);
             this->completed++;
             delete[] p;
 
@@ -68,8 +69,7 @@ void CapitalEquipment::create()
             char* p = new char[port.length() + 1];
             strcpy(p, port.toLatin1().constData());
 
-
-            pCharger = new BK9200(nullptr, p, BK_BAUD, LINE_FEED, BK::chargerID);
+            //pCharger = new BK9200(nullptr, p, BK_BAUD, LINE_FEED, BK::chargerID);
             this->completed++;
             delete[] p;
 

@@ -131,7 +131,7 @@ void MainWindow::onTimer()
 
     //If probe has finished, and objects have not been created, create them
     if (probeStatus && equStatus == 0)
-        pce->create();
+        //pce->create();
 
 
     if (count < 12 && equStatus == 3)

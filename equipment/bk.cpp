@@ -61,6 +61,7 @@ BK::BK(QObject *parent, const char *port,int baud,char terminationChar, QString 
     pSerialDevice = new SerialDevice(nullptr,port,baud,terminationChar);
 }
 
+
 bool BK::equipmentValidation(QString idString)
 {
     if (idString.contains(this->idString))
