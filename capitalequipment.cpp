@@ -19,12 +19,6 @@ CapitalEquipment::CapitalEquipment(){
     pRelay1 = new Relay(0x20);
     pRelay2 = new Relay(0x40);
     completed = 0;
-
-    pMeter;
-    pMotorSupply;
-    pCharger;
-
-
 }
 
 CapitalEquipment::~CapitalEquipment(){
@@ -40,11 +34,6 @@ CapitalEquipment::~CapitalEquipment(){
 void CapitalEquipment::create()
 {
 
-    //How to properly convert these QString ports into char* without extra characters?
-    //
-    //
-    //
-    //
     for (int i = 0; i < Probe->pieces.size(); i++)
     {
         if (Probe->pieces[i].equ == meter)
@@ -52,6 +41,7 @@ void CapitalEquipment::create()
             QString port =  Probe->pieces[i].port;
             char* p = new char[port.length() + 1];
             strcpy(p, port.toLatin1().constData());
+
 
             pMeter = new BK2831E(nullptr, p, BK_BAUD, LINE_FEED, BK::meterID);
             this->completed++;
@@ -65,6 +55,7 @@ void CapitalEquipment::create()
             char* p = new char[port.length() + 1];
             strcpy(p, port.toLatin1().constData());
 
+
             pMotorSupply = new BK9200(nullptr, p , BK_BAUD, LINE_FEED, BK::supplyID);
             this->completed++;
             delete[] p;
@@ -76,6 +67,7 @@ void CapitalEquipment::create()
 
             char* p = new char[port.length() + 1];
             strcpy(p, port.toLatin1().constData());
+
 
             pCharger = new BK9200(nullptr, p, BK_BAUD, LINE_FEED, BK::chargerID);
             this->completed++;

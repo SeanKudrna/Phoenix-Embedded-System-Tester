@@ -174,10 +174,10 @@ void MainWindow::onTimer()
             ppu->exec();
         }
 
-       //else if(!pce->pCharger->equipmentValidation(ChargerID)){
-            //popup *ppu = new popup();
-            //ppu->exec();
-       // }
+       else if(!pce->pCharger->equipmentValidation(ChargerID)){
+            popup *ppu = new popup();
+            ppu->exec();
+        }
 
 
     }

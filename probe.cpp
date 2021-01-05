@@ -57,7 +57,7 @@ void probe::testAll()
                     pSerial->sendMessage(REMOTE);
                     pSerial->sendMessage(IDN);
 
-                    //Save port, and pop value off the list
+                    //Save port
                     curPort = portList[i];
                     //portList.pop_front();
 
@@ -98,6 +98,8 @@ void probe::testAll()
                     pieces.append(piece);
                 //}
                  state = SS_SEND;
+
+                 //remove port from list
                  portList.pop_front();
             }
             break;
