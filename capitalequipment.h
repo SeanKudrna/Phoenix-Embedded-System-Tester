@@ -20,6 +20,19 @@ public:
     BK2831E *pMeter;
     BK9200 *pMotorSupply;
     BK9200 *pCharger;
+
+    //For test purposes
+    //BK2831E *pTestMeter;
+    //BK9200 *pTestMotorSupply;
+    //BK9200 *pTestCharger;
+
+    QString getPort(QString piece);
+
+    char *meterPort;
+    char *motorPort;
+    char *chargerPort;
+    //-----
+
     Dac *pDac;
     Relay *pRelay1;
     Relay *pRelay2;

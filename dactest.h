@@ -18,6 +18,14 @@ public:
 private slots:
     void on_pb_testmenu_clicked();
 
+    void on_pb_dac1_clicked();
+
+    void on_pb_dac2_clicked();
+
+    void on_pb_dac2_2_clicked();
+
+    void on_pb_dac3_clicked();
+
 private:
     Ui::dactest *ui;
 };

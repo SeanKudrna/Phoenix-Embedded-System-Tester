@@ -131,10 +131,10 @@ void MainWindow::onTimer()
 
     //If probe has finished, and objects have not been created, create them
     if (probeStatus && equStatus == 0)
-        //pce->create();
+        pce->create();
 
 
-    if (count < 12 && equStatus == 3)
+    if (count < 8 && equStatus == 3)
     {
         ui->pb_statusbar->setValue((count*25 ));
 
@@ -144,9 +144,10 @@ void MainWindow::onTimer()
         pce->pCharger->getId();
 
 
+
     }
 
-    if (count == 12 && equStatus == 3)
+    if (count == 8 && equStatus == 3)
     {
         QString MeterID;
         QString SupplyID;

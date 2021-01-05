@@ -9,7 +9,6 @@ static const char *REMOTE = {"SYST:REM\n"};
 //How do I set up the constructor?
 probe::probe() //BK(parent,port,baud,terminationChar,idString)
 {
-
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(testAll()));
     timer->start(1000);
