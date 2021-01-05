@@ -126,6 +126,7 @@ void MainWindow::onTimer()
         ui->pb_statusbar->setValue((count*30)+(count*3));
         pce->pMeter->getId();
         pce->pMotorSupply->getId();
+        pce->pCharger->getId();
     }
 
     if (count == 4)
@@ -136,6 +137,7 @@ void MainWindow::onTimer()
 
         pce->pMeter->getNextData(&MeterID);
         pce->pMotorSupply->getNextData(&SupplyID);
+        pce->pCharger->getNextData(&ChargerID);
         ui->lbl_status->hide();
         ui->pb_statusbar->hide();
 
@@ -155,10 +157,10 @@ void MainWindow::onTimer()
         }
 
         //-----Testing-----
-       //else if(!pce->pCharger->equipmentValidation(ChargerID)){
-            //popup *ppu = new popup();
-            //ppu->exec();
-        //}
+       else if(!pce->pCharger->equipmentValidation(ChargerID)){
+            popup *ppu = new popup();
+            ppu->exec();
+        }
         //-----Comment Out Again-----
 
     }
