@@ -15,22 +15,30 @@ typedef enum {
 class probe : public QObject
 {
     Q_OBJECT
+
 public:
+    //Constructor
      probe();
 
+    //Equipment structure
     struct equipmentAssignment
     {
+        //Serial port
         QString port;
+
+        //Equipment type
         equipment equ;
     };
 
+    //List of equipment objects
     QList<equipmentAssignment> pieces;
+
+    //Find available ports
     void listPorts();
     bool getStatus();
 
 public slots:
         void testAll();
-
 
 private:
     SerialDevice *pSerial;

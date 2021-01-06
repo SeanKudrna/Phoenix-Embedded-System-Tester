@@ -4,39 +4,61 @@
 #include "QDebug"
 
 
+//Constructor
 CapitalEquipment::CapitalEquipment(){
+
+    //Non BK equipment object construction
     pCan= new Can(0x00,0x00);
-
-    pMeter = new BK2831E(nullptr,SERIAL_PORT,BK_BAUD,LINE_FEED, BK::meterID);
-    pMotorSupply = new BK9200(nullptr,SERIAL_MOTOR,BK_BAUD,LINE_FEED, BK::supplyID);
-    pCharger = new BK9200(nullptr,SERIAL_CHARGER,BK_BAUD,LINE_FEED, BK::chargerID);
-
     Probe = new probe();
-
-    /*
-    char* meterPort = new char[getPort("meter").length() + 1];
-    strcpy(meterPort, getPort("meter").toLatin1().constData());
-
-    char* motorPort = new char[getPort("motor").length() + 1];
-    strcpy(motorPort, getPort("motor").toLatin1().constData());
-
-    char* chargerPort = new char[getPort("charger").length() + 1];
-    strcpy(chargerPort, getPort("charger").toLatin1().constData());
-
-
-    pMeter = new BK2831E(nullptr, meterPort, BK_BAUD, LINE_FEED, BK::meterID);
-    pMotorSupply = new BK9200(nullptr, motorPort, BK_BAUD, LINE_FEED, BK::supplyID);
-    pCharger = new BK9200(nullptr, chargerPort, BK_BAUD, LINE_FEED, BK::chargerID);
-    */
-
-
     pDac = new Dac(0x60);
     pRelay1 = new Relay(0x20);
     pRelay2 = new Relay(0x40);
     completed = 0;
 
+    //-------------------WORKING -> CONSTRUCT WITHOUT SERIAL DETECTION----------------------------------
+
+    /*
+    pMeter = new BK2831E(nullptr,SERIAL_PORT,BK_BAUD,LINE_FEED, BK::meterID);
+
+    pMotorSupply = new BK9200(nullptr,SERIAL_MOTOR,BK_BAUD,LINE_FEED, BK::supplyID);
+
+    pCharger = new BK9200(nullptr,SERIAL_CHARGER,BK_BAUD,LINE_FEED, BK::chargerID);
+    */
+
+    //---------------------------------------------------------------------------------------------------
+
+
+    //----------------------UPDATE PORT PRIOR TO CONSTRUCTION ATTEMPT------------------------------------
+
+    //Below is a solution I attempted. It constructs the equipment objects using a null serial port
+    //then later, in create() the serial port of these objects is updated using a setter method I've
+    //created in BK. After testing with a debugger, object ports are correctly updated, yet Application
+    //Output still shows the serial ports as closed.
+
+    pMeter = new BK2831E(nullptr,"",BK_BAUD,LINE_FEED, BK::meterID); //SERIAL_PORT
+
+    pMotorSupply = new BK9200(nullptr,"",BK_BAUD,LINE_FEED, BK::supplyID); //SERIAL_MOTOR
+
+    pCharger = new BK9200(nullptr,"",BK_BAUD,LINE_FEED, BK::chargerID); //SERIAL_CHARGER
+    //---------------------------------------------------------------------------------------------------
+
+
+    //----------------------CONSTRUCT AND GET PORT AT SAME TIME ATTEMPT----------------------------------
+
+    //Below is another solution I attempted. It constructs the equipment objects using a getPort() method
+    //that I wrote in hopes of being able to construct the objects at the same time as finding their ports
+    //using a getPort() method I wrote that takes a QString value to signify which port you are trying to find.
+    //This resulted in an application crash.
+
+    /*
+    pMeter = new BK2831E(nullptr, getPort("meter"), BK_BAUD, LINE_FEED, BK::meterID);
+    pMotorSupply = new BK9200(nullptr, getPort("motor"), BK_BAUD, LINE_FEED, BK::supplyID);
+    pCharger = new BK9200(nullptr, getPort("charger"), BK_BAUD, LINE_FEED, BK::chargerID);
+    */
+    //---------------------------------------------------------------------------------------------------
 }
 
+//Deconstructor
 CapitalEquipment::~CapitalEquipment(){
     delete pCan;
     delete pMeter;
@@ -47,79 +69,145 @@ CapitalEquipment::~CapitalEquipment(){
     delete pRelay2;
 }
 
-QString CapitalEquipment::getPort(QString equipmentPiece)
+//getPort() function. Written for purposes of "CONSTRUCT
+//AND GET PORT AT SAME TIME ATTEMPT" in constructor.
+char* CapitalEquipment::getPort(QString equipmentPiece)
 {
+    //If equipment = DMM
     if (equipmentPiece == "meter")
     {
+        //Go through list of equipment pieces
         for (int i = 0; i < Probe->pieces.size(); i++)
         {
+            //Find the correct piece
             if (Probe->pieces[i].equ == meter)
-                return Probe->pieces[i].port;
+            {
+                //Find and return the port of that equipment piece
+                char* p = new char[Probe->pieces[i].port.length() + 1];
+                strcpy(p, Probe->pieces[i].port.toLatin1().constData());
+                return p;
+            }
         }
     }
 
+    //If equipment = BK2905
     else if (equipmentPiece == "motor")
     {
+        //Go through list of equipment pieces
          for (int i = 0; i < Probe->pieces.size(); i++)
          {
+             //Find the correct piece
              if (Probe->pieces[i].equ == motorSupply)
-                 return Probe->pieces[i].port;
+             {
+                 //Find and return the port of that equipment piece
+                 char* p = new char[Probe->pieces[i].port.length() + 1];
+                 strcpy(p, Probe->pieces[i].port.toLatin1().constData());
+                 return p;
+             }
          }
     }
 
+    //If equipment = BK2901
     else if (equipmentPiece == "charger")
     {
+        //Go through list of equipment pieces
         for (int i = 0; i < Probe->pieces.size(); i++)
         {
+            //Find the correct piece
             if (Probe->pieces[i].equ == chargerSupply)
-                return Probe->pieces[i].port;
+            {
+                //Find and return the port of that equipment piece
+                char* p = new char[Probe->pieces[i].port.length() + 1];
+                strcpy(p, Probe->pieces[i].port.toLatin1().constData());
+                return p;
+            }
         }
     }
 }
 
+//create() function. Creates equipment objects after probe executes and completes.
+//called from mainwindow.cpp.
 void CapitalEquipment::create()
 {
-
+    //Go through the list of equipment pieces
     for (int i = 0; i < Probe->pieces.size(); i++)
     {
+        //If equipment = DMM
         if (Probe->pieces[i].equ == meter)
         {
+            //Get port, convert to const char* and create object.
+            //If new object construction is commented out, setPort() changes
+            //already created object's port for the purpose of "UPDATE PORT PRIOR TO
+            //CONSTRUCTION ATTEMPT" in construtor.
             QString port =  Probe->pieces[i].port;
             char* p = new char[port.length() + 1];
             strcpy(p, port.toLatin1().constData());
 
-            //pMeter = new BK2831E(nullptr, p, BK_BAUD, LINE_FEED, BK::meterID);
-            this->completed++;
-            delete[] p;
+            //Update port
+            pMeter->setPort(p);
 
+            //Create object
+            //pMeter = new BK2831E(nullptr, p, BK_BAUD, LINE_FEED, BK::meterID);
+
+            //Update completed to show another equipment object was created
+            this->completed++;
+
+            //Delete memory associated with port
+            delete[] p;
         }
+
+        //If equipment = BK2905
         else if (Probe->pieces[i].equ == motorSupply)
         {
+            //Get port, convert to const char* and create object.
+            //If new object construction is commented out, setPort() changes
+            //already created object's port for the purpose of "UPDATE PORT PRIOR TO
+            //CONSTRUCTION ATTEMPT" in construtor.
             QString port =  Probe->pieces[i].port;
-
             char* p = new char[port.length() + 1];
             strcpy(p, port.toLatin1().constData());
 
-            //pMotorSupply = new BK9200(nullptr, p , BK_BAUD, LINE_FEED, BK::supplyID);
-            this->completed++;
-            delete[] p;
+            //Update port
+            pMotorSupply->setPort(p);
 
+            //Create object
+            //pMotorSupply = new BK9200(nullptr, p , BK_BAUD, LINE_FEED, BK::supplyID);
+
+            //Update completed to show another equipment object was created
+            this->completed++;
+
+            //Delete memory associated with port
+            delete[] p;
         }
+
+        //If equipment = BK2901
         else if (Probe->pieces[i].equ == chargerSupply)
         {
+            //Get port, convert to const char* and create object.
+            //If new object construction is commented out, setPort() changes
+            //already created object's port for the purpose of "UPDATE PORT PRIOR TO
+            //CONSTRUCTION ATTEMPT" in construtor.
             QString port =  Probe->pieces[i].port;
-
             char* p = new char[port.length() + 1];
             strcpy(p, port.toLatin1().constData());
 
-            //pCharger = new BK9200(nullptr, p, BK_BAUD, LINE_FEED, BK::chargerID);
-            this->completed++;
-            delete[] p;
+            //Update port
+            pCharger->setPort(p);
 
+            //Create object
+            //pCharger = new BK9200(nullptr, p, BK_BAUD, LINE_FEED, BK::chargerID);
+
+            //Update completed to show another equipment object was created
+            this->completed++;
+
+            //Delete memory associated with port
+            delete[] p;
         }
     }
 }
 
+//getCompletedStatus() function. Returns how many equipment
+//objects have been created/had their ports updated.
 int CapitalEquipment::getCompletedStatus()
 {
     return completed;

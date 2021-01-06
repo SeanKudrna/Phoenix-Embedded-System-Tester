@@ -1,0 +1,27 @@
+#include "relaydriver.h"
+#include "ui_relaydriver.h"
+#include "testmenu.h"
+
+//Constructor
+relaydriver::relaydriver(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::relaydriver)
+{
+    ui->setupUi(this);
+}
+
+//Deconstructor
+relaydriver::~relaydriver()
+{
+    delete ui;
+}
+
+//Show test menu
+void relaydriver::on_pb_testmenu_clicked()
+{
+    testmenu *ptm = new testmenu();
+
+    //ptm->exec();
+    ptm->show();
+    this->close();
+}

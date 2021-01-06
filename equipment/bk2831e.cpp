@@ -2,7 +2,6 @@
 
 #define CC_CHAR const_cast<char*>
 
-
 static const char *FETCH = {"FETCH?\n"};
 
 #if(0)
@@ -28,56 +27,55 @@ public:
 };
 
 
+//Deconstructor
 BK2831E::~BK2831E(){
-    // fixme send the quit thread signal
-  //  serialThread->quit();
-  //  while(serialThread->isRunning());
-  //  serialObject->deleteLater();
-  // serialThread->deleteLater();
-
-  //
-    // delete the thread
-    // delete the port
 }
 
-
- 
+//Constructor
 BK2831E::BK2831E(BK *parent, const char *port,int baud,char terminationChar, QString idString):BK(parent,port,baud,terminationChar, idString)
 {
 }
 
 
-
-void BK2831E::trigger(void){ /* send the trigger caommand */
+//Send the trigger command
+void BK2831E::trigger(void){
     if(pSerialDevice){
         pSerialDevice->sendMessage(CC_CHAR(TRIG));
     }
 }
-void BK2831E::setVAC(void){ /* set meter to VAC */
+
+//Set the meter to VAC
+void BK2831E::setVAC(void){
     if(pSerialDevice){
         pSerialDevice->sendMessage(CC_CHAR(VAC));
     }
 }
-void BK2831E::setOHMS(void){ /* set meter to OHMS */
+
+//Set the meter to OHMS
+void BK2831E::setOHMS(void){
     if(pSerialDevice){
         pSerialDevice->sendMessage(CC_CHAR(OHMS));
     }
 }
-void BK2831E::setVDC(void){ /* set meter to VDC */
+
+//Set the meter to VDC
+void BK2831E::setVDC(void){
     if(pSerialDevice){
         pSerialDevice->sendMessage(CC_CHAR(VDC));
     }
 }
-void BK2831E::setReference(bool enable){ /* enable/disable reference reading */
+
+//Enable/disable reference reading
+void BK2831E::setReference(bool enable){
     if(pSerialDevice){
-        if(enable){
-         pSerialDevice->sendMessage(CC_CHAR(REF));
-        }
-        else{
-         pSerialDevice->sendMessage(CC_CHAR(NO_REF));
-        }
+        if(enable)
+            pSerialDevice->sendMessage(CC_CHAR(REF));
+
+        else
+            pSerialDevice->sendMessage(CC_CHAR(NO_REF));
     }
 }
+
 #if(0)
 void BK2831E::reset(void){ /* reset the meter */
     QString reply;
@@ -85,8 +83,11 @@ void BK2831E::reset(void){ /* reset the meter */
         pSerialDevice->sendMessage(CC_CHAR(RESET));
     }
 }
+
 #endif
-void BK2831E::measure(void){ /* make a reading */
+
+//Make a meter reading
+void BK2831E::measure(void){
     QString data;
     if(pSerialDevice){
          pSerialDevice->sendMessage(CC_CHAR(FETCH));

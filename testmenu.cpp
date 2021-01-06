@@ -6,8 +6,10 @@
 #include "relaydriver.h"
 #include "capitalequipment.h"
 
+//Get CapitalEquipment object
 extern CapitalEquipment *pce;
 
+//Constructor
 testmenu::testmenu(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::testmenu)
@@ -16,37 +18,22 @@ testmenu::testmenu(QWidget *parent) :
 
 }
 
+//Deconstrutor
 testmenu::~testmenu()
 {
     delete ui;
 }
 
+//Show meter UI (BK2831E)
 void testmenu::on_pb_dmm_clicked()
 {
     MainWindow *pmm = new MainWindow();
 
     pmm->show();
     this->close();
-
-    // QUESTION / NOTE
-
-    /*
-     * Cannot
-     *
-     * delete pmm;
-     *
-     * -show() does not let you delete the pointer while viewing.
-     * -window will close
-     *
-     * MainWindow inherits from QMainWindow rather than
-     * QDialogue
-     *
-     * How should we handle this?
-     *
-     */
-    //delete pmm;
 }
 
+//Show power supply UI (2901-2905)
 void testmenu::on_pb_powersupply_clicked()
 {
     pce->pMotorSupply->remoteMode(true);
@@ -55,31 +42,24 @@ void testmenu::on_pb_powersupply_clicked()
     pce->pCharger->reset();
     powersupply2 *pps = new powersupply2();
 
-    //pps->exec();
     pps->show();
     this->close();
-    //delete pps;
 }
 
+//Show relay UI
 void testmenu::on_pb_relaydriver_clicked()
 {
     relaydriver *prd = new relaydriver();
 
-    //prd->exec();
     prd->show();
     this->close();
-
-    //delete prd;
 }
 
+//Show DAC UI
 void testmenu::on_pb_dac_clicked()
 {
     dactest *pd = new dactest();
 
-    //pd->exec();
     pd->show();
     this->close();
-
-    //delete pd;
-
 }

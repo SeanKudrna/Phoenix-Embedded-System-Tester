@@ -36,6 +36,9 @@ public:
     bool getNextData(QString *data);
     bool getNextData(int *data);
 
+    //set this->port
+    void setPort(char *pPort);
+
     bool equipmentValidation(QString idString);
 
     void clearDataList(void); /* clear the data list  of measurements */

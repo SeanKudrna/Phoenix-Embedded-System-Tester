@@ -1,27 +1,7 @@
 #include "dac.h"
 #include "Pi2c-master/pi2c.h"
 
-/*!
- *    @brief  Instantiates a new MCP4728 class
- */
 
-/*!
- *    @brief  Sets up the hardware and initializes I2C
- *    @param  i2c_address
- *            The I2C address to be used.
- *    @param  wire
- *            The Wire object to be used for I2C connections.
- *    @return True if initialization was successful, otherwise false.
- */
-//Dac::Dac(void) {}
-//Dac::Dac(uint8_t i2c_address) {
-//  i2c_dev = new Pi2c(i2c_address);
-//}
-//Dac::~Dac(void){
- //   if(i2c_dev){
-  //    delete i2c_dev;
-   // }
-//}
 /*!
  *    @brief  Applies formula to conver desired voltage to required setting.
  *    @param  volts - the desired voltage
@@ -31,9 +11,9 @@ uint16_t Dac::volts2Steps(double volts){
 #define SLOPE  781.46
 #define OFFSET  15.21
 
-    volts *=SLOPE+OFFSET;
+volts *=SLOPE+OFFSET;
 
-    return(uint16_t(volts));
+return(uint16_t(volts));
 
 #undef SLOPE
 #undef OFFSET
@@ -50,6 +30,7 @@ bool Dac::begin(uint8_t i2c_address) {
 }
 #endif
 
+//Set channel value settings
 bool Dac::setChannelValue(
     MCP4728_channel_t channel, double value, MCP4728_vref_t new_vref,
     MCP4728_gain_t new_gain, MCP4728_pd_mode_t new_pd_mode, bool udac) {
@@ -116,28 +97,28 @@ bool Dac::setChannelValue(
  * and the DAC
  */
 bool Dac::fastWrite(uint16_t channel_a_value,
-                                 uint16_t channel_b_value,
-                                 uint16_t channel_c_value,
-                                 uint16_t channel_d_value) {
+uint16_t channel_b_value,uint16_t channel_c_value,
+uint16_t channel_d_value) {
 
-  uint8_t output_buffer[8];
+    uint8_t output_buffer[8];
 
-  output_buffer[0] = channel_a_value >> 8;
-  output_buffer[1] = channel_a_value & 0xFF;
+    output_buffer[0] = channel_a_value >> 8;
+    output_buffer[1] = channel_a_value & 0xFF;
 
-  output_buffer[2] = channel_b_value >> 8;
-  output_buffer[3] = channel_b_value & 0xFF;
+    output_buffer[2] = channel_b_value >> 8;
+    output_buffer[3] = channel_b_value & 0xFF;
 
-  output_buffer[4] = channel_c_value >> 8;
-  output_buffer[5] = channel_c_value & 0xFF;
+    output_buffer[4] = channel_c_value >> 8;
+    output_buffer[5] = channel_c_value & 0xFF;
 
-  output_buffer[6] = channel_d_value >> 8;
-  output_buffer[7] = channel_d_value & 0xFF;
+    output_buffer[6] = channel_d_value >> 8;
+    output_buffer[7] = channel_d_value & 0xFF;
 
-  if (!pi2c->i2cWrite((char *)output_buffer, 8)) {
-     return false;
-  }
-  return true;
+    if (!pi2c->i2cWrite((char *)output_buffer, 8)) {
+       return false;
+    }
+
+    return true;
 }
 
 /**
@@ -149,36 +130,36 @@ bool Dac::fastWrite(uint16_t channel_a_value,
  * and the DAC */
 
 bool Dac::saveToEEPROM(void) {
-  uint8_t input_buffer[24];
-  uint8_t output_buffer[9];
+      uint8_t input_buffer[24];
+      uint8_t output_buffer[9];
 
-  pi2c->i2cRead((char *)input_buffer, 24);
+      pi2c->i2cRead((char *)input_buffer, 24);
 
-  // build header byte 0 1 0 1 0 DAC1 DAC0 UDAC [A]
-  uint8_t eeprom_write_cmd = MCP4728_MULTI_EEPROM_CMD; // 0 1 0 1 0 xxx
-  eeprom_write_cmd |=
-      (MCP4728_CHANNEL_A << 1); // DAC1 DAC0, start at channel A obvs
-  eeprom_write_cmd |= 0;        // UDAC ; yes, latch please
-  // First byte is the write command+options
-  output_buffer[0] = eeprom_write_cmd;
+      // build header byte 0 1 0 1 0 DAC1 DAC0 UDAC [A]
+      uint8_t eeprom_write_cmd = MCP4728_MULTI_EEPROM_CMD; // 0 1 0 1 0 xxx
+      eeprom_write_cmd |=
+          (MCP4728_CHANNEL_A << 1); // DAC1 DAC0, start at channel A obvs
+      eeprom_write_cmd |= 0;        // UDAC ; yes, latch please
+      // First byte is the write command+options
+      output_buffer[0] = eeprom_write_cmd;
 
-  // copy the incoming input register bytes to the outgoing buffer
-  // Channel A
-  output_buffer[1] = input_buffer[1];
-  output_buffer[2] = input_buffer[2];
-  // Channel B
-  output_buffer[3] = input_buffer[7];
-  output_buffer[4] = input_buffer[8];
-  // Channel C
-  output_buffer[5] = input_buffer[13];
-  output_buffer[6] = input_buffer[14];
-  // Channel D
-  output_buffer[7] = input_buffer[19];
-  output_buffer[8] = input_buffer[20];
+      // copy the incoming input register bytes to the outgoing buffer
+      // Channel A
+      output_buffer[1] = input_buffer[1];
+      output_buffer[2] = input_buffer[2];
+      // Channel B
+      output_buffer[3] = input_buffer[7];
+      output_buffer[4] = input_buffer[8];
+      // Channel C
+      output_buffer[5] = input_buffer[13];
+      output_buffer[6] = input_buffer[14];
+      // Channel D
+      output_buffer[7] = input_buffer[19];
+      output_buffer[8] = input_buffer[20];
 
-  if (!pi2c->i2cWrite((char *)output_buffer, 9)) {
-    return false;
-  }
-  //fixme delay(15);
-  return true;
+      if (!pi2c->i2cWrite((char *)output_buffer, 9)) {
+        return false;
+      }
+      //fixme delay(15);
+      return true;
 }

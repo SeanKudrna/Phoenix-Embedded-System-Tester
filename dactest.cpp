@@ -4,6 +4,7 @@
 #include "dac.cpp"
 #include "capitalequipment.h"
 
+//Constructor
 dactest::dactest(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::dactest)
@@ -11,11 +12,13 @@ dactest::dactest(QWidget *parent) :
     ui->setupUi(this);
 }
 
+//Deconstructor
 dactest::~dactest()
 {
     delete ui;
 }
 
+//Test menu button
 void dactest::on_pb_testmenu_clicked()
 {
     testmenu *ptm = new testmenu();

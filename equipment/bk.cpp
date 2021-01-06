@@ -9,9 +9,9 @@ static const char *IDN   = {"*IDN?\n"};
 static const char *RESET = {"*RST\n"};
 
 
- const QString BK::meterID = {"2831E  Multimeter"};
- const QString BK::supplyID = {"B&K Precision, 9205"};
- const QString BK::chargerID  = {"B&K Precision, 9201"};
+const QString BK::meterID = {"2831E  Multimeter"};
+const QString BK::supplyID = {"B&K Precision, 9205"};
+const QString BK::chargerID  = {"B&K Precision, 9201"};
 
 BK::~BK(){
 #if(0)
@@ -21,36 +21,29 @@ BK::~BK(){
     serialObject->deleteLater();
     serialThread->deleteLater();
 #endif
-
-    // delete the thread
-
-    // delete the port
 }
 
+//Get port
 void BK::getPort(char *pPort){
     strcpy(pPort,this->port);
 }
 
+//Get baud
 int BK::getBaud(void){
     return this->baud;
 }
 
+//get termination char
 char BK::getTerminationChar(void){
     return this->terminationChar;
 }
 
-
-/*
-BK::BK(QObject *parent, const char *port,int baud,char terminationChar) : QObject(parent)
-{
-    strcpy(this->port,port);
-    this->baud = baud;
-    this->terminationChar = terminationChar;
-
-    pSerialDevice = new SerialDevice(nullptr,port,baud,terminationChar);
+//Set this->port
+void BK::setPort(char *pPort){
+     strcpy(port, pPort);
 }
-*/
 
+//Constructor
 BK::BK(QObject *parent, const char *port,int baud,char terminationChar, QString idString) : QObject(parent)
 {
     strcpy(this->port,port);
@@ -61,23 +54,26 @@ BK::BK(QObject *parent, const char *port,int baud,char terminationChar, QString 
     pSerialDevice = new SerialDevice(nullptr,port,baud,terminationChar);
 }
 
-
+//Validates equipment with idStrings
 bool BK::equipmentValidation(QString idString)
 {
+    //If idString contains a known idString, return true
     if (idString.contains(this->idString))
         return true;
 
+    //Otherwise, return false
     return false;
 }
 
-
-void BK::getId(void){ /* request the identification of the meter */
+//Request the identification of the meter
+void BK::getId(void){
     if(pSerialDevice){
         pSerialDevice->sendMessage(CC_CHAR(IDN));
     }
 }
 
-void BK::reset(void){ /* force reset of device */
+//Force reset of device
+void BK::reset(void){
     if(pSerialDevice){
         pSerialDevice->sendMessage(CC_CHAR(RESET));
     }
@@ -97,17 +93,18 @@ void getNumber(QString *pTarget,QString *pSource){
     n= pSource->indexOf('\r',0);
     *pTarget = pSource->left(n);
 }
+
+//Get data returned from command call given a string
 bool BK::getNextData(QString *data){
     bool status = true;
     QString message;
 
-
     if(pSerialDevice){
-
         if( pSerialDevice->getNextData(&message)){
             getNumber(data,&message);
         }
     }
+
     if(0 == data->length()){
         status = false;
     }
@@ -115,60 +112,60 @@ bool BK::getNextData(QString *data){
     return status;
 }
 
+//Get data returned from command call given an int
 bool BK::getNextData(int *data){
     bool ok = false;
     QString message;
     QString left;
 
     if(pSerialDevice){
-
         if( pSerialDevice->getNextData(&message)){
-
             getNumber(&left,&message);
             *data = message.toInt(&ok);
         }
     }
+
     else{
         ok = false;
     }
+
     return ok;
 }
 
 
-/* take from the data list */
+//Take from the data list
 bool BK::getNextData(double *data){
     bool ok = false;
     QString message;
     QString left;
 
-
     if(pSerialDevice){
-
         if( pSerialDevice->getNextData(&message)){
-
             getNumber(&left,&message);
-
             *data = left.toDouble(&ok);
+
             if(0.0 == *data)
                 return false;
+
             else
                 return true ;
         }
-        else{
+
+        else
             return false;
-        }
     }
-    else{
+
+    else
         return false;
-    }
 }
-/* clear the data list  of measurements */
+
+//Clear the data list  of measurements
 void BK::clearDataList(void){
     if(pSerialDevice)
         pSerialDevice->clearDataList();
 }
 
-
+//Add a double
 void  BK::appendValue(QString *pString,double value){
     QString val;
     val = QString::number(value);
@@ -176,6 +173,7 @@ void  BK::appendValue(QString *pString,double value){
     pString->append("\n");
 }
 
+//Add a int
 void  BK::appendValue(QString *pString,int value){
     QString val;
     val = QString::number(value,10);
@@ -183,7 +181,8 @@ void  BK::appendValue(QString *pString,int value){
     pString->append("\n");
 }
 
-bool BK::toVoltage(char *string,double *volt){  /* convert the string to double voltage */
+//Convert the string to double voltage
+bool BK::toVoltage(char *string,double *volt){
     bool ok;
     *volt = QString(string).toDouble(&ok);
     return true;
