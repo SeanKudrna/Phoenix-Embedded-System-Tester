@@ -175,6 +175,9 @@ void MainWindow::onTimer()
         pce->pMotorSupply->getNextData(&SupplyID);
         pce->pCharger->getNextData(&ChargerID);
 
+        ui->lbl_status->hide();
+        ui->pb_statusbar->hide();
+
 
         //Hide status bar in UI
         ui->lbl_status->hide();
@@ -192,7 +195,7 @@ void MainWindow::onTimer()
             ppu->exec();
         }//EOF else if
 
-       //If charger was unable to be validated, display popup
+        //If charger was unable to be validated, display popup
        else if(!pce->pCharger->equipmentValidation(ChargerID)){
             popup *ppu = new popup();
             ppu->exec();
