@@ -27,13 +27,13 @@ powersupply2::powersupply2(QWidget *parent) :
 
     //0 = 2905, //1 = 2901
     config = 0;
-}
+}//EOF Constructor
 
 //Deconstrutor
 powersupply2::~powersupply2()
 {
     delete ui;
-}
+}//EOF Deconstructor
 
 //onTimer() executes every second
 void powersupply2::onTimer()
@@ -42,17 +42,17 @@ void powersupply2::onTimer()
     if (config == 0) {
         pce->pMotorSupply->getADC();
         pce->pMotorSupply->getNextData(&result);
-    }
+    }//EOF if
 
     //If 2901, send measurment request to charger
     else {
         pce->pCharger->getADC();
         pce->pCharger->getNextData(&result);
-    }
+    }//EOF else
 
     //Update result box in UI with updated information
     ui->te_ampreader->setHtml("<b><p align = 'center'>" + result + "</p></b>");
-}
+}//EOF onTimer
 
 //Open test menu
 void powersupply2::on_pb_testmenu_clicked()
@@ -61,7 +61,7 @@ void powersupply2::on_pb_testmenu_clicked()
     ptm->show();
     //delete ptm;
     this->close();
-}
+}//EOF test menu
 
 //Increase voltage button
 void powersupply2::on_pb_increasev_clicked()
@@ -86,7 +86,7 @@ void powersupply2::on_pb_increasev_clicked()
 
             //pc->->pMotorSupply->setVDC(voltage);
             pce->pMotorSupply->increaseVOLTS();
-        }
+        }//EOF if
 
         //If 2901 send commands to charger
         else {
@@ -96,9 +96,9 @@ void powersupply2::on_pb_increasev_clicked()
 
             //pc->->pMotorSupply->setVDC(voltage);
             pce->pCharger->increaseVOLTS();
-        }
-    }
-}
+        }//EOF else
+    }//EOF if
+}//EOF increase voltage
 
 //Reset supply
 void powersupply2::on_pb_reset_clicked()
@@ -106,7 +106,7 @@ void powersupply2::on_pb_reset_clicked()
     pce->pMotorSupply->reset();
     ui->te_enablestatus->setHtml("<b><p align = 'center'>0</p></b>");
 
-}
+}//EOF reset
 
 //Decrease voltage button
 void powersupply2::on_pb_decreasev_clicked()
@@ -133,7 +133,7 @@ void powersupply2::on_pb_decreasev_clicked()
 
             //pce->pMotorSupply->setVDC(voltage);
             pce->pMotorSupply->decreaseVOLTS();
-        }
+        }//EOF if
 
         //If 2901 send commands to charger
         else {
@@ -143,9 +143,9 @@ void powersupply2::on_pb_decreasev_clicked()
 
             //pce->pMotorSupply->setVDC(voltage);
             pce->pCharger->decreaseVOLTS();
-        }
-    }
-}
+        }//EOF else
+    }//EOF if
+}//EOF decrease voltage
 
 //Select Voltage (input)
 void powersupply2::on_pb_voltageselect_clicked()
@@ -167,8 +167,8 @@ void powersupply2::on_pb_voltageselect_clicked()
         //Update UI result box
         ui->te_enablestatus->setHtml("<b><p align = 'center'>" + voltage + "</p></b>");
         ui->te_voltagesetting->clear();
-    }
-}
+    }//EOF if
+}//EOF select voltage
 
 
 //Clear errors
@@ -181,7 +181,7 @@ void powersupply2::on_pb_remote_clicked()
     //If 2901, send command to charger
     else
         pce->pCharger->clearErrors();
-}
+}//EOF clear
 
 //Apply voltage (on / off)
 void powersupply2::on_cb_applyvoltage_stateChanged(int state)
@@ -217,7 +217,7 @@ void powersupply2::on_cb_applyvoltage_stateChanged(int state)
             pce->pCharger->triggerVOLTS(1);
 
     }//EOF Turn on voltage
-}
+}//EOF apply voltage
 
 //Select amps (input)
 void powersupply2::on_pb_ampsselect_clicked()
@@ -232,8 +232,8 @@ void powersupply2::on_pb_ampsselect_clicked()
             pce->pMotorSupply->setAMPS(amps.toDouble());
             ui->te_ampsresult->setHtml("<b><p align = 'center'>" + amps + "</p></b>");
             ui->te_ampssetting->clear();
-        }
-    }
+        }//EOF if
+    }//EOF if
 
     //If 2901, validate is between respective min/max on charger, update UI, send command, then erase input box.
     else {
@@ -242,9 +242,9 @@ void powersupply2::on_pb_ampsselect_clicked()
             pce->pCharger->setAMPS(amps.toDouble());
             ui->te_ampsresult->setHtml("<b><p align = 'center'>" + amps + "</p></b>");
             ui->te_ampssetting->clear();
-        }
-    }
-}
+        }//EOF if
+    }//EOF else
+}//EOF select amps
 
 
 //Decrease amps
@@ -271,7 +271,7 @@ void powersupply2::on_pb_decreasea_clicked()
 
             //pce->pMotorSupply->setVDC(voltage);
             pce->pMotorSupply->decreaseAMPS();
-        }
+        }//EOF if
 
         //If 2901, send commands to charger
         else {
@@ -280,9 +280,9 @@ void powersupply2::on_pb_decreasea_clicked()
 
             //pce->pMotorSupply->setVDC(voltage);
             pce->pCharger->decreaseAMPS();
-        }
-    }
-}
+        }//EOF else
+    }//EOF if
+}//EOF decrease amps
 
 //Increase amps
 void powersupply2::on_pb_increasea_clicked()
@@ -307,8 +307,8 @@ void powersupply2::on_pb_increasea_clicked()
 
             //pc->->pMotorSupply->setVDC(voltage);
             pce->pMotorSupply->increaseAMPS();
-        }
-    }
+        }//EOF if
+    }//EOF if
 
     //If 2901
     else {
@@ -327,9 +327,9 @@ void powersupply2::on_pb_increasea_clicked()
 
             //pc->->pMotorSupply->setVDC(voltage);
             pce->pCharger->increaseAMPS();
-        }
-    }
-}
+        }//EOF if
+    }//EOF else
+}//EOF increase amps
 
 
 //Change config (switch between 2905 and 2901 control)
@@ -344,7 +344,7 @@ void powersupply2::on_pb_config_clicked()
         ui->te_ampsresult->setHtml("<b><p align = 'center'>10.1</p></b>");
         ui->te_enablestatus->setHtml("<b><p align = 'center'>0</p></b>");
 
-    }
+    }//EOF if
 
     //If 201, swich to 2905, update UI status box and reset motor supply
     else {
@@ -354,5 +354,5 @@ void powersupply2::on_pb_config_clicked()
         pce->pMotorSupply->reset();
         ui->te_ampsresult->setHtml("<b><p align = 'center'>25.1</p></b>");
         ui->te_enablestatus->setHtml("<b><p align = 'center'>0</p></b>");
-    }
-}
+    }//EOF else
+}//EOF change config

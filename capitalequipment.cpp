@@ -17,29 +17,38 @@ CapitalEquipment::CapitalEquipment(){
 
     //-------------------WORKING -> CONSTRUCT WITHOUT SERIAL DETECTION----------------------------------
 
-    /*
+    //Below are there statments needed to allow the program to run without serial detection.
+    //The values SERIAL_PORT, SERIAL_MOTOR, and SERIAL CHARGER are set to default ttyUSB ports
+    //ttyUSB0 = SERIAL_PORT
+    //ttyUSB1 = SERIAL_MOTOR
+    //ttyUSB2 = SERIAL_CHARGER
+
+
     pMeter = new BK2831E(nullptr,SERIAL_PORT,BK_BAUD,LINE_FEED, BK::meterID);
 
     pMotorSupply = new BK9200(nullptr,SERIAL_MOTOR,BK_BAUD,LINE_FEED, BK::supplyID);
 
     pCharger = new BK9200(nullptr,SERIAL_CHARGER,BK_BAUD,LINE_FEED, BK::chargerID);
-    */
+
 
     //---------------------------------------------------------------------------------------------------
 
 
-    //----------------------UPDATE PORT PRIOR TO CONSTRUCTION ATTEMPT------------------------------------
+    //----------------------UPDATE PORT AFTER CONSTRUCTION ATTEMPT------------------------------------
 
     //Below is a solution I attempted. It constructs the equipment objects using a null serial port
     //then later, in create() the serial port of these objects is updated using a setter method I've
     //created in BK. After testing with a debugger, object ports are correctly updated, yet Application
     //Output still shows the serial ports as closed.
 
+    /*
     pMeter = new BK2831E(nullptr,"",BK_BAUD,LINE_FEED, BK::meterID); //SERIAL_PORT
 
     pMotorSupply = new BK9200(nullptr,"",BK_BAUD,LINE_FEED, BK::supplyID); //SERIAL_MOTOR
 
     pCharger = new BK9200(nullptr,"",BK_BAUD,LINE_FEED, BK::chargerID); //SERIAL_CHARGER
+    */
+
     //---------------------------------------------------------------------------------------------------
 
 
@@ -47,14 +56,17 @@ CapitalEquipment::CapitalEquipment(){
 
     //Below is another solution I attempted. It constructs the equipment objects using a getPort() method
     //that I wrote in hopes of being able to construct the objects at the same time as finding their ports
-    //using a getPort() method I wrote that takes a QString value to signify which port you are trying to find.
+    //using a getPort() method that takes a QString value to signify which port you are trying to find.
     //This resulted in an application crash.
 
     /*
     pMeter = new BK2831E(nullptr, getPort("meter"), BK_BAUD, LINE_FEED, BK::meterID);
+
     pMotorSupply = new BK9200(nullptr, getPort("motor"), BK_BAUD, LINE_FEED, BK::supplyID);
+
     pCharger = new BK9200(nullptr, getPort("charger"), BK_BAUD, LINE_FEED, BK::chargerID);
     */
+
     //---------------------------------------------------------------------------------------------------
 }
 
@@ -67,7 +79,7 @@ CapitalEquipment::~CapitalEquipment(){
     delete pDac;
     delete pRelay1;
     delete pRelay2;
-}
+}//EOF Deconstructor
 
 //getPort() function. Written for purposes of "CONSTRUCT
 //AND GET PORT AT SAME TIME ATTEMPT" in constructor.
@@ -86,9 +98,9 @@ char* CapitalEquipment::getPort(QString equipmentPiece)
                 char* p = new char[Probe->pieces[i].port.length() + 1];
                 strcpy(p, Probe->pieces[i].port.toLatin1().constData());
                 return p;
-            }
-        }
-    }
+            }//EOF if
+        }//EOF for
+    }//EOF if
 
     //If equipment = BK2905
     else if (equipmentPiece == "motor")
@@ -103,9 +115,9 @@ char* CapitalEquipment::getPort(QString equipmentPiece)
                  char* p = new char[Probe->pieces[i].port.length() + 1];
                  strcpy(p, Probe->pieces[i].port.toLatin1().constData());
                  return p;
-             }
-         }
-    }
+             }//EOF if
+         }//EOF for
+    }//EOF else if
 
     //If equipment = BK2901
     else if (equipmentPiece == "charger")
@@ -120,10 +132,10 @@ char* CapitalEquipment::getPort(QString equipmentPiece)
                 char* p = new char[Probe->pieces[i].port.length() + 1];
                 strcpy(p, Probe->pieces[i].port.toLatin1().constData());
                 return p;
-            }
-        }
-    }
-}
+            }//EOF if
+        }//EOF for
+    }//EOF else if
+}//EOF getPort()
 
 //create() function. Creates equipment objects after probe executes and completes.
 //called from mainwindow.cpp.
@@ -154,7 +166,7 @@ void CapitalEquipment::create()
 
             //Delete memory associated with port
             delete[] p;
-        }
+        }//EOF if
 
         //If equipment = BK2905
         else if (Probe->pieces[i].equ == motorSupply)
@@ -178,7 +190,7 @@ void CapitalEquipment::create()
 
             //Delete memory associated with port
             delete[] p;
-        }
+        }//EOF else if
 
         //If equipment = BK2901
         else if (Probe->pieces[i].equ == chargerSupply)
@@ -202,13 +214,13 @@ void CapitalEquipment::create()
 
             //Delete memory associated with port
             delete[] p;
-        }
-    }
-}
+        }//EOF else if
+    }//EOF for
+}//EOF Create()
 
 //getCompletedStatus() function. Returns how many equipment
 //objects have been created/had their ports updated.
 int CapitalEquipment::getCompletedStatus()
 {
     return completed;
-}
+}//EOF getCompletedStatus()

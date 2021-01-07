@@ -16,13 +16,13 @@ testmenu::testmenu(QWidget *parent) :
 {
     ui->setupUi(this);
 
-}
+}//EOF Constructor
 
 //Deconstrutor
 testmenu::~testmenu()
 {
     delete ui;
-}
+}//EOF Deconstructor
 
 //Show meter UI (BK2831E)
 void testmenu::on_pb_dmm_clicked()
@@ -31,7 +31,7 @@ void testmenu::on_pb_dmm_clicked()
 
     pmm->show();
     this->close();
-}
+}//EOF show meter
 
 //Show power supply UI (2901-2905)
 void testmenu::on_pb_powersupply_clicked()
@@ -44,7 +44,7 @@ void testmenu::on_pb_powersupply_clicked()
 
     pps->show();
     this->close();
-}
+}//EOF show power supply
 
 //Show relay UI
 void testmenu::on_pb_relaydriver_clicked()
@@ -53,7 +53,7 @@ void testmenu::on_pb_relaydriver_clicked()
 
     prd->show();
     this->close();
-}
+}//EOF show relay
 
 //Show DAC UI
 void testmenu::on_pb_dac_clicked()
@@ -62,4 +62,4 @@ void testmenu::on_pb_dac_clicked()
 
     pd->show();
     this->close();
-}
+}//EOF show dac

@@ -17,7 +17,7 @@ probe::probe()
     listPorts();
     connect(timer, SIGNAL(timeout()), this, SLOT(testAll()));
     timer->start(1000);
-}
+}//EOF constructor
 
 //listPorts() method. Creates a list of all available relevant serial ports
 void probe::listPorts()
@@ -32,14 +32,14 @@ void probe::listPorts()
             //If it is, append it to the port list
             portList.append(serialPort.portName());
 
-    }
-}
+    }//EOF for
+}//EOF listPorts()
 
 //getStatus() method. Returns true when probe has finished.
 bool probe::getStatus()
 {
     return complete;
-}
+}//EOF getStatus()
 
 //List of different states in testAll()
 enum states{
@@ -92,19 +92,19 @@ void probe::testAll()
                         //Move on to next state
                         state = SS_RECIEVE;
                         break;
-                    }
-                 }
-             }
+                    }//EOF if
+                 }//EOF if
+             }//EOF for
 
              //If all ports in port list have been checked
              if (portList.size() == 0){
 
                  //Complete state machine
                  state = SS_COMPLETE;
-             }
+             }//EOF if
 
             break;
-        }
+        }//EOF SEND
 
         //If RECIEVE state
         case SS_RECIEVE:{
@@ -126,21 +126,21 @@ void probe::testAll()
                 {
                     //Set equipment type = meter
                     piece.equ = meter;
-                }
+                }//EOF if
 
                 //If ID string contains known ID string for motor supply
                 else if (serialString.contains(BK::supplyID))
                 {
                     //Set equipment type = motor supply
                     piece.equ = motorSupply;
-                }
+                }//EOF else if
 
                 //If ID String contains known ID string for charger
                 else if (serialString.contains(BK::chargerID))
                 {
                     //Set equipment type = charger
                     piece.equ = chargerSupply;
-                }
+                }//EOF else if
 
                 //Now that piece.port and piece.equ have been aquired, append to pieces list
                 pieces.append(piece);
@@ -150,9 +150,9 @@ void probe::testAll()
 
                  //remove port we have just processed from temp port list
                  portList.pop_front();
-            }
+            }//EOF if
             break;
-        }
+        }//EOF RECIEVE
 
         //if COMPLETE state
         case SS_COMPLETE:{
@@ -163,7 +163,7 @@ void probe::testAll()
            //End timer
            timer->stop();
            break;
-        }
-    }
-}
+        }//EOF COMPLETE
+    }//EOF Switch
+}//EOF testAll()
 

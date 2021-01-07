@@ -7,16 +7,16 @@ popup::popup(QWidget *parent) :
     ui(new Ui::popup)
 {
     ui->setupUi(this);
-}
+}//EOF constructor
 
 //Deconstructor
 popup::~popup()
 {
     delete ui;
-}
+}//EOF deconstructor
 
 //Close window
 void popup::on_pushButton_clicked()
 {
     this->close();
-}
+}//EOF window

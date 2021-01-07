@@ -30,13 +30,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
     probeStatus = false;
     equStatus = 0;
-}
+    ui->pb_statusbar->setValue(0);
+
+}//EOF constructor
 
 //Deconstructor
 MainWindow::~MainWindow()
 {
     delete ui;
-}
+}//EOF deconstructor
 
 //Different testing states for DMM
 enum states{
@@ -67,7 +69,7 @@ bool MainWindow::stateMachine(void)
 
             state = SS_OHMS;
             break;
-        }
+        }//EOF VAC
 
         //If in OHMS state, set meter to OHMS and display a message then move on to the next state
         case SS_OHMS:{
@@ -76,7 +78,7 @@ bool MainWindow::stateMachine(void)
 
             state = SS_VDC;
             break;
-        }
+        }//EOF OHMS
 
         //If in VDC state, set meter to VDC and display a message then move on to the next state
         case SS_VDC:{
@@ -86,7 +88,7 @@ bool MainWindow::stateMachine(void)
             ui->te_result->append("\n...Now Reading voltage on VDC...");
             state = SS_READ;
             break;
-        }
+        }//EOF VDC
 
         //If in READ state, complete 3 voltage measurments then loop back to the first state
         case SS_READ:{
@@ -106,25 +108,25 @@ bool MainWindow::stateMachine(void)
                 ui->te_result->append("\nCompleted test iteration " + QString::number(testIterations) + "\n");
                 countReading = 0;
                 state = SS_VAC;
-            }
+            }//EOF if
 
             break;
-        }
+        }//EOF READ
 
         //Error case, unused
         case SS_ERROR:{
             break;
-        }
+        }//EOF ERROR
 
         //Complete state, unused
         case SS_COMPLETE:{
             callAgain = false;
             break;
-        }
-    }
+        }//EOF COMPLETE
+    }//EOF SWITCH
 
     return callAgain;
-}
+}//EOF StateMachine()
 
 //onTimer executes every second
 void MainWindow::onTimer()
@@ -134,29 +136,35 @@ void MainWindow::onTimer()
     count++;
     ui->te_timer->append(QString::number(count));
 
+    //Below is commented out when serial port detection is off
+    /*
     //Get probe status
     probeStatus = pce->Probe->getStatus();
     equStatus = pce->getCompletedStatus();
 
 
-    //If probe has finished, and objects have not been created, create them
+    //If probe has finished, and objects have not been created, create them.
+    //If create() is commented out, serial detection is disabled and
+    //Equipment objects are created in capitalequipment constructor.
     if (probeStatus && equStatus == 0)
-        pce->create();
+        //pce->create();
+    */
+
 
     //While the clock is under 8 sec, and devices are constructed send IDN commands to devices.
-    if (count < 8 && equStatus == 3)
+    if (count < 8 /*&& equStatus == 3*/)
     {
         //Update status bar in UI
-        ui->pb_statusbar->setValue((count*25 ));
+        ui->pb_statusbar->setValue((count*12.5));
 
         pce->pMeter->getId();
         pce->pMotorSupply->getId();
         pce->pCharger->getId();
 
-    }
+    }//EOF if
 
     //Once clock hits 8 seconds, complete equipment validation.
-    if (count == 8 && equStatus == 3)
+    if (count == 8 /*&& equStatus == 3*/)
     {
         QString MeterID;
         QString SupplyID;
@@ -176,20 +184,20 @@ void MainWindow::onTimer()
         if (!pce->pMeter->equipmentValidation(MeterID)){
             popup *ppu = new popup();
             ppu->exec();
-        }
+        }//EOF if
 
         //If motor supply was unable to be validated, display popup
        else if (!pce->pMotorSupply->equipmentValidation(SupplyID)){
             popup *ppu = new popup();
             ppu->exec();
-        }
+        }//EOF else if
 
        //If charger was unable to be validated, display popup
        else if(!pce->pCharger->equipmentValidation(ChargerID)){
             popup *ppu = new popup();
             ppu->exec();
-        }
-    }
+        }//EOF else if
+    }//EOF if
 
     //If START button is clicked, execute stateMachine() automated testing
     if (getData)
@@ -199,9 +207,8 @@ void MainWindow::onTimer()
     else {
         if (flag)
             ui->te_result->append(" ");
-    }
-
-}
+    }//EOF else
+}//EOF onTimer()
 
 //Logic behind automated testing button
 void MainWindow::on_pb_get_clicked()
@@ -219,7 +226,7 @@ void MainWindow::on_pb_get_clicked()
         //Update state to false
         getData = false;
         //state = SS_COMPLETE;
-    }
+    }//EOF if
 
     //If machine is stopped
     else
@@ -230,44 +237,44 @@ void MainWindow::on_pb_get_clicked()
         //Update state to true
         getData = true;
         //state = SS_VAC;
-    }
+    }//EOF else
 
-}
+}//EOF test
 
 //Set meter to VAC and display
 void MainWindow::on_rb_ac_clicked()
 {    
    pce->pMeter->setVAC();
    ui->te_result->append("\n...Now Reading voltage on VAC...\n");
-}
+}//EOF VAC
 
 //Set meter to VDC and display
 void MainWindow::on_rb_dc_clicked()
 {
     pce->pMeter->setVDC();
     ui->te_result->append("\n...Now Reading voltage on VDC...\n");
-}
+}//EOF VDC
 
 //Set meter to OHMS and display
 void MainWindow::on_rb_ohms_clicked()
 {
     pce->pMeter->setOHMS();
     ui->te_result->append("\n...Now Reading resistance in OHMS ...\n");
-}
+}//EOF OHMS
 
 //Reset meter and completed tests counter
 void MainWindow::on_pb_reset_clicked()
 {
     pce->pMeter->reset();
     testIterations = 0;
-}
+}//EOF reset
 
 //Clear UI result boxes
 void MainWindow::on_pb_clear_clicked()
 {
     ui->te_result->clear();
     ui->te_timer->clear();
-}
+}//EOF clear
 
 //Open new test menu
 void MainWindow::on_pb_testm_clicked()
@@ -275,5 +282,5 @@ void MainWindow::on_pb_testm_clicked()
     testmenu *ptm = new testmenu();
     ptm->show();
     this->close();
-}
+}//EOF test menu
 
