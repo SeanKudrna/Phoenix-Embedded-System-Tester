@@ -6,7 +6,6 @@ as well as a dac, and a series of relays.
 The purpose of these GUI's is to allow easy automated testing of each piece
 of the equipment.
 
-------------------------------------------------------------------------------------
 
 # Equipment
 The equipment folder contains the following files:
@@ -27,16 +26,14 @@ communication with the equipment.
 types.h holds important data constants for equipment and serial communication.
 This data includes default ttyUSB serial ports, BK baud rate, and termination chars.
 
-------------------------------------------------------------------------------------
 
 # Pi2c-master
-the pi2c-master folder contains the following files:
+The pi2c-master folder contains the following files:
 -mcp2317.cpp
 -pi2x.cpp
 
 These files handle construction, methods, and data for DAC and relay equipment.
 
-------------------------------------------------------------------------------------
 
 # Project Files
 The main project files consist of the following :
@@ -64,7 +61,6 @@ relay and relaydriver handle the UI for the relays
 testmenu handles the UI for the hub to switch between UIs
 dac and dactest handle the UI for the DAC
 
-------------------------------------------------------------------------------------
 
 # Forms (UIs)
 The Forms folder contains the following files:
@@ -77,7 +73,6 @@ testmenu.ui
 
 These .ui files are auto-created by Qt and consist the front end info for each UI
 
-------------------------------------------------------------------------------------
 
 # Project Summary
 The purpose of this project is to have multiple user interfaces that interact with each
