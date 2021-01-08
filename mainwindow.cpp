@@ -31,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
     probeStatus = false;
     equStatus = 0;
     ui->pb_statusbar->setValue(0);
+    ui->tb_verificationResult->hide();
 
 }//EOF constructor
 
@@ -200,6 +201,10 @@ void MainWindow::onTimer()
             popup *ppu = new popup();
             ppu->exec();
         }//EOF else if
+
+       else{
+            ui->tb_verificationResult->show();
+        }
     }//EOF if
 
     //If START button is clicked, execute stateMachine() automated testing
@@ -236,6 +241,8 @@ void MainWindow::on_pb_get_clicked()
     {
         //Update text on button to say STOP
         ui->pb_get->setText("Stop");
+        ui->tb_verificationResult->hide();
+
 
         //Update state to true
         getData = true;
