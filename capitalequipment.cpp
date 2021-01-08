@@ -51,7 +51,6 @@ CapitalEquipment::CapitalEquipment(){
 
     //---------------------------------------------------------------------------------------------------
 
-
     //----------------------CONSTRUCT AND GET PORT AT SAME TIME ATTEMPT----------------------------------
 
     //Below is another solution I attempted. It constructs the equipment objects using a getPort() method
