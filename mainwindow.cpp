@@ -95,10 +95,13 @@ bool MainWindow::stateMachine(void)
         case SS_READ:{
             pce->pMeter->measure();
             pce->pMeter->getNextData(&result);
-            ui->te_result->append(result);
 
-            //Count the reading only if result is not empty
-            if (result != "")
+            //Will not display leftover responses from IDN requests
+            if(result != "2831E  Multimeter,Ver1.4.14.06.18,123B20101")
+                ui->te_result->append(result);
+
+            //Count the reading only if result is not empty, and not leftover IDN response
+            if (result != "" && result != "2831E  Multimeter,Ver1.4.14.06.18,123B20101")
                 countReading++;
 
             //If all three readings are completed

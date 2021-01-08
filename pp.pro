@@ -47,7 +47,6 @@ SOURCES += \
     powersupply2.cpp \
     popup.cpp \
     probe.cpp \
-    libraries/Adafruit_MCP23017/Adafruit_MCP23017.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -73,8 +72,6 @@ HEADERS += \
     powersupply2.h \
     popup.h \
     probe.h \
-    libraries/Adafruit_MCP23017/examples/toggle/toggle.ino \
-    libraries/Adafruit_MCP23017/Adafruit_MCP23017.h
 
 FORMS += \
         mainwindow.ui \
